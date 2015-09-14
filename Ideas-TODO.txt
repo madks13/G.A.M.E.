@@ -1,0 +1,23 @@
+GAME :
+#General :
+ - Sound mute
+ - Sound volume
+ - Sound Manager
+ - Image Manager
+ - File/Files Selector
+ - Text outlining
+ - Informer singleton
+
+#Warframe Alert Scanner :
+ - Background [U]
+ - Alert Countdown [U]
+ - Choose sound
+ - Send message when filter matches
+ 
+#Main : 
+ - Modules status
+ - Remember launched modules [U]
+ 
+ aca rada prokuplje
+ 0038127323102
+ 0038137788107

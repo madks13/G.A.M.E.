@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{098A3F2B-DFF3-4593-A750-D0D81C6E708D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GAME.Common.Core</RootNamespace>
+    <AssemblyName>GAME.Common.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Debug\GAME\Modules\Common\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Release\GAME\Modules\Common\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>GAMESignature.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.AddIn.Contract" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Presentation" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Westwind.Utilities, Version=2.64.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Westwind.Utilities.2.64\lib\net45\Westwind.Utilities.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Interfaces\IGroup.cs" />
+    <Compile Include="Interfaces\IPluginGroup.cs" />
+    <Compile Include="Interfaces\ISettings.cs" />
+    <Compile Include="Interfaces\Managers\IManagerDataGetter.cs" />
+    <Compile Include="Interfaces\Pages\IMainPage.cs" />
+    <Compile Include="Interfaces\Pages\IOptionsPage.cs" />
+    <Compile Include="Interfaces\Plugin\IDataPlugin.cs" />
+    <Compile Include="Interfaces\Plugin\IModule.cs" />
+    <Compile Include="Interfaces\Plugin\IDataOptions.cs" />
+    <Compile Include="Interfaces\Plugin\IModuleEvents.cs" />
+    <Compile Include="Interfaces\Plugin\IPlugin.cs" />
+    <Compile Include="Interfaces\Plugin\IPluginContainer.cs" />
+    <Compile Include="Interfaces\Managers\IManagerModules.cs" />
+    <Compile Include="Interfaces\Plugin\IDataMain.cs" />
+    <Compile Include="Interfaces\Tools\IFinder.cs" />
+    <Compile Include="Models\ClosureEvent.cs" />
+    <Compile Include="Models\Collections\Group.cs" />
+    <Compile Include="Models\Collections\MTObservableCollection.cs" />
+    <Compile Include="Models\ObservableExpando.cs" />
+    <Compile Include="Models\Collections\ObservableGroup.cs" />
+    <Compile Include="Models\Collections\ObservablePluginGroup.cs" />
+    <Compile Include="Models\Collections\PluginGroup.cs" />
+    <Compile Include="Models\Extensions\StyleRefExtension.cs" />
+    <Compile Include="Models\Extensions\StylesDictionaryRefExtension.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\PropertiesObserver.cs" />
+    <Compile Include="Views\GAMEPageBase.cs" />
+    <Compile Include="Views\GAMEWindowBase.cs" />
+    <Compile Include="Views\GAMEWindowMAO.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Buttons\Close\GAME_Close_active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Templates\Default.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Buttons\Close\GAME_Close_inactive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Buttons\Max\GAME_Max_active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Buttons\Max\GAME_Max_inactive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Buttons\Min\GAME_Min_active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Buttons\Min\GAME_Min_inactive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Buttons\Normal\GAME_Normal_active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Buttons\Normal\GAME_Normal_inactive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Buttons\Options\GAME_Options_active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Buttons\Options\GAME_Options_inactive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\GAME_icon_black.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\GAME_icon_white.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Logos\Default-Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Logos\GAME_logo_black.png" />
+    <Resource Include="Resources\Images\Logos\GAME_logo_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GAMESignature.pfx" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controls\" />
+    <Folder Include="Models\Plugin\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

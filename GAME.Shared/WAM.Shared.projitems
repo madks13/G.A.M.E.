@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>fc5ad947-e924-4b76-8c97-9468af609e2a</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>GAME.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IActivity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IReward.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\Managers\IManagersActivity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\Managers\IManagersExtractor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\Managers\IManagersRSS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\Managers\IManagersSound.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\Managers\IManagersStorage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Activities\Alert.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Activities\Invasion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Activities\Outbreak.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\FeedDTO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Groups\Faction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Groups\Syndicate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\LevelInterval.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Locations\Place.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Locations\Planet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Mission.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Objects\Object.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Objects\Resource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Rewards\RewardCredits.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Rewards\RewardObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Rewards\RewardReputation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PropertiesObserver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ManagerActivity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ManagerRSS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RSSManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Views\" />
+  </ItemGroup>
+</Project>

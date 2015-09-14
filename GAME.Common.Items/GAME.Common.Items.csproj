@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AD8961C3-9C86-4D90-9E40-18F0EE98643D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GAME.Common.Items</RootNamespace>
+    <AssemblyName>GAME.Common.Items</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Debug\GAME\Modules\Common\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Release\GAME\Modules\Common\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>GAMESignature.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Interfaces\IObject.cs" />
+    <Compile Include="Models\Object.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\Blueprint\" />
+    <Folder Include="Interfaces\Currency\" />
+    <Folder Include="Interfaces\Item\Archwing\Weapon\Main\" />
+    <Folder Include="Interfaces\Item\Archwing\Weapon\Melee\" />
+    <Folder Include="Interfaces\Item\Archwing\Wing\" />
+    <Folder Include="Interfaces\Item\Warframe\Frame\" />
+    <Folder Include="Interfaces\Item\Warframe\Pet\Kubrow\" />
+    <Folder Include="Interfaces\Item\Warframe\Pet\Sentinel\Body\" />
+    <Folder Include="Interfaces\Item\Warframe\Pet\Sentinel\Part\" />
+    <Folder Include="Interfaces\Item\Warframe\Pet\Sentinel\Weapon\" />
+    <Folder Include="Interfaces\Item\Warframe\Weapon\Main\" />
+    <Folder Include="Interfaces\Item\Warframe\Weapon\Melee\" />
+    <Folder Include="Interfaces\Item\Warframe\Weapon\Secondary\" />
+    <Folder Include="Interfaces\Miscelanous\Event\" />
+    <Folder Include="Interfaces\Miscelanous\Extractor\" />
+    <Folder Include="Interfaces\Miscelanous\Gear\" />
+    <Folder Include="Interfaces\Miscelanous\Key\" />
+    <Folder Include="Interfaces\Miscelanous\Supercharger\" />
+    <Folder Include="Interfaces\Module\Archwing\" />
+    <Folder Include="Interfaces\Module\Warframe\Frame\" />
+    <Folder Include="Interfaces\Module\Warframe\Kubrow\" />
+    <Folder Include="Interfaces\Module\Warframe\Melee\" />
+    <Folder Include="Interfaces\Module\Warframe\Pistol\" />
+    <Folder Include="Interfaces\Module\Warframe\Rifle\" />
+    <Folder Include="Interfaces\Module\Warframe\Sentinel\" />
+    <Folder Include="Interfaces\Module\Warframe\Shotgun\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GAMESignature.pfx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
