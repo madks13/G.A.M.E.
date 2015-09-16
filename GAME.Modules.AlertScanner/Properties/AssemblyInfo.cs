@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("GAME.Modules.AlertScanner")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Scans for alerts for the game Warframe")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("GAME.Modules.AlertScanner")]

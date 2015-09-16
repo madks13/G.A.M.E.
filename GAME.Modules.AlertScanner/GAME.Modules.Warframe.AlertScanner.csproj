@@ -10,9 +10,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GAME.Modules.Warframe.AlertScanner</RootNamespace>
     <AssemblyName>GAME.Modules.Warframe.AlertScanner</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -112,14 +113,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GAME.Common.Managers.Modules\GAME.Common.Managers.csproj">
-      <Project>{afefa6f2-50a8-4a8b-a61c-b8e21679fae2}</Project>
-      <Name>GAME.Common.Managers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GAME.Common.Missions\GAME.Common.Missions.csproj">
-      <Project>{9271eb28-863f-4bc7-a931-090c71fd4ef4}</Project>
-      <Name>GAME.Common.Missions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GAME.Common.Plugin\GAME.Common.Plugin.csproj">
       <Project>{8a34b8ec-75e4-4bf1-9f37-36c50448cab5}</Project>
       <Name>GAME.Common.Plugin</Name>
@@ -127,6 +120,10 @@
     <ProjectReference Include="..\GAME.Common\GAME.Common.Core.csproj">
       <Project>{098a3f2b-dff3-4593-a750-d0d81c6e708d}</Project>
       <Name>GAME.Common.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GAME.Modules.Warframe.Common\GAME.Modules.Warframe.Common.csproj">
+      <Project>{9ce9b800-28e4-4cf2-8f01-0f3d14fb307f}</Project>
+      <Name>GAME.Modules.Warframe.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

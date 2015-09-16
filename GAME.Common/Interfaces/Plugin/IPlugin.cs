@@ -8,6 +8,13 @@ using System.ComponentModel;
 
 namespace GAME.Common.Core.Interfaces.Plugin
 {
+    [Flags]
+    public enum PluginState
+    {
+        None,
+        Loaded,
+        Instantiated
+    }
     public interface IPlugin
     {
         #region Properties
@@ -18,6 +25,8 @@ namespace GAME.Common.Core.Interfaces.Plugin
 
         String Name { get; }
 
+        String Version { get; }
+
         Boolean IsLaunched { get; }
 
         Boolean IsInstantiated { get; }
@@ -27,8 +36,6 @@ namespace GAME.Common.Core.Interfaces.Plugin
         #region Methods
 
         Tmod GetInstance<Tmod>() where Tmod : class;
-
-        //CorePlugin GetInstance();
 
         void UnloadModule();
 

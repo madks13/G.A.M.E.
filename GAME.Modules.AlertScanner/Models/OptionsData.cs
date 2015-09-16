@@ -1,5 +1,6 @@
 ﻿using GAME.Common.Core.ViewModels;
-using GAME.Common.Missions.Interfaces;
+using GAME.Modules.Warframe.Common.Missions.Interfaces;
+using GAME.Modules.Warframe.Common.Missions.Enums;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -56,9 +57,9 @@ namespace GAME.Modules.Warframe.AlertScanner.Models
             set { Properties.Options.Default.UserNewActivitySound = value; }
         }
 
-        public GAME.Common.Missions.Enums.Platforms Platforms
+        public GAME.Modules.Warframe.Common.Missions.Enums.Platforms Platforms
         {
-            get { return (GAME.Common.Missions.Enums.Platforms)Properties.Options.Default.UserSelectedPlatforms; }
+            get { return (GAME.Modules.Warframe.Common.Missions.Enums.Platforms)Properties.Options.Default.UserSelectedPlatforms; }
             set
             {
                 Properties.Options.Default.UserSelectedPlatforms = (int)value;
@@ -105,7 +106,7 @@ namespace GAME.Modules.Warframe.AlertScanner.Models
         {
             ScanFrequency = DefaultScanFrequency;
             ExpandedExpanders.Clear();
-            Platforms = Common.Missions.Enums.Platforms.PC;
+            Platforms =  GAME.Modules.Warframe.Common.Missions.Enums.Platforms.PC;
             ViewedActivities.Clear();
         }
 

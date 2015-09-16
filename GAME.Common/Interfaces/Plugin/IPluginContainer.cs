@@ -12,6 +12,8 @@ namespace GAME.Common.Core.Interfaces.Plugin
     {
         Boolean LoadPlugin(String path);
 
+        Boolean ReloadPlugin();
+
         Tmod GetInstance<Tmod>(String name) where Tmod : class;
 
         List<IPlugin> Modules { get; }

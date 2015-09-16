@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9CE9B800-28E4-4CF2-8F01-0F3D14FB307F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GAME.Modules.Warframe.Common</RootNamespace>
+    <AssemblyName>GAME.Modules.Warframe.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>GAMESignature.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Presentation" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Items\Interfaces\IObject.cs" />
+    <Compile Include="Items\Models\Object.cs" />
+    <Compile Include="Managers\Deathsnack\DeathsnackManager.cs" />
+    <Compile Include="Managers\RSS\FeedDTO.cs" />
+    <Compile Include="Managers\RSS\RSSManager.cs" />
+    <Compile Include="Missions\Enums\EPlatform.cs" />
+    <Compile Include="Missions\Enums\EType.cs" />
+    <Compile Include="Missions\Enums\Reward\EGiver.cs" />
+    <Compile Include="Missions\Enums\Reward\EType.cs" />
+    <Compile Include="Missions\Interfaces\IActivity.cs" />
+    <Compile Include="Missions\Interfaces\IReward.cs" />
+    <Compile Include="Missions\Models\Activity\Activity.cs" />
+    <Compile Include="Missions\Models\Activity\Alert.cs" />
+    <Compile Include="Missions\Models\Activity\Invasion.cs" />
+    <Compile Include="Missions\Models\Activity\Outbreak.cs" />
+    <Compile Include="Missions\Models\Grouping\AvailabilityGroup.cs" />
+    <Compile Include="Missions\Models\Grouping\ObservableAvailabilityGroup.cs" />
+    <Compile Include="Missions\Models\Grouping\ObservablePlatformGroup.cs" />
+    <Compile Include="Missions\Models\Grouping\ObservableTypeGroup.cs" />
+    <Compile Include="Missions\Models\Grouping\PlatformGroup.cs" />
+    <Compile Include="Missions\Models\Grouping\TypeGroup.cs" />
+    <Compile Include="Missions\Models\Mission\LevelInterval.cs" />
+    <Compile Include="Missions\Models\Mission\Mission.cs" />
+    <Compile Include="Missions\Models\Mission\Planet.cs" />
+    <Compile Include="Missions\Models\Mission\Reward.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GAMESignature.pfx" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Items\Interfaces\Blueprint\" />
+    <Folder Include="Items\Interfaces\Currency\" />
+    <Folder Include="Items\Interfaces\Item\Archwing\Weapon\Main\" />
+    <Folder Include="Items\Interfaces\Item\Archwing\Weapon\Melee\" />
+    <Folder Include="Items\Interfaces\Item\Archwing\Wing\" />
+    <Folder Include="Items\Interfaces\Item\Warframe\Frame\" />
+    <Folder Include="Items\Interfaces\Item\Warframe\Pet\Kubrow\" />
+    <Folder Include="Items\Interfaces\Item\Warframe\Pet\Sentinel\Body\" />
+    <Folder Include="Items\Interfaces\Item\Warframe\Pet\Sentinel\Part\" />
+    <Folder Include="Items\Interfaces\Item\Warframe\Pet\Sentinel\Weapon\" />
+    <Folder Include="Items\Interfaces\Item\Warframe\Weapon\Main\" />
+    <Folder Include="Items\Interfaces\Item\Warframe\Weapon\Melee\" />
+    <Folder Include="Items\Interfaces\Item\Warframe\Weapon\Secondary\" />
+    <Folder Include="Items\Interfaces\Miscelanous\Event\" />
+    <Folder Include="Items\Interfaces\Miscelanous\Extractor\" />
+    <Folder Include="Items\Interfaces\Miscelanous\Gear\" />
+    <Folder Include="Items\Interfaces\Miscelanous\Key\" />
+    <Folder Include="Items\Interfaces\Miscelanous\Supercharger\" />
+    <Folder Include="Items\Interfaces\Module\Archwing\" />
+    <Folder Include="Items\Interfaces\Module\Warframe\Frame\" />
+    <Folder Include="Items\Interfaces\Module\Warframe\Kubrow\" />
+    <Folder Include="Items\Interfaces\Module\Warframe\Melee\" />
+    <Folder Include="Items\Interfaces\Module\Warframe\Pistol\" />
+    <Folder Include="Items\Interfaces\Module\Warframe\Rifle\" />
+    <Folder Include="Items\Interfaces\Module\Warframe\Sentinel\" />
+    <Folder Include="Items\Interfaces\Module\Warframe\Shotgun\" />
+    <Folder Include="Missions\Enums\Alert\" />
+    <Folder Include="Missions\Enums\Invasion\" />
+    <Folder Include="Missions\Enums\Outbreak\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GAME.Common\GAME.Common.Core.csproj">
+      <Project>{098a3f2b-dff3-4593-a750-d0d81c6e708d}</Project>
+      <Name>GAME.Common.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

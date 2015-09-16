@@ -1,18 +1,14 @@
-﻿using System;
+﻿using GAME.Common.Core.Interfaces.Managers;
+using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Net;
-using System.Web.Helpers;
-using System.Dynamic;
-using GAME.Common.Core.Interfaces.Managers;
 
-namespace GAME.Common.Managers.RSS
+namespace GAME.Modules.Warframe.Common.Managers.RSS
 {
     public class RSSManager : IManagerDataGetter
     {

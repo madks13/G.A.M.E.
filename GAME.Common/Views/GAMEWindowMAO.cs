@@ -14,9 +14,10 @@ namespace GAME.Common.Core.Views
     {
         #region Fields
 
-        protected Page _main = null;
-        protected Page _options = null;
-        protected Boolean _templateLoaded = false;
+        private Page _main = null;
+        private Page _options = null;
+        private Boolean _templateLoaded = false;
+        private Boolean _disposed = false;
 
          #endregion
 
@@ -50,8 +51,7 @@ namespace GAME.Common.Core.Views
 
         private void Init()
         {
-            //Closing += GAMEWindowMAO_Closing;
-            GAMEWindowClosing += GAMEWindowMAO_Closing;
+            //GAMEWindowClosing += GAMEWindowMAO_Closing;
             //DataContext = this;
             //if (MainFrame != null)
             //MainFrame.Content = _main;
@@ -107,12 +107,6 @@ namespace GAME.Common.Core.Views
             WindowOptionsButton.PreviewMouseLeftButtonUp += WindowOptionsButton_PreviewMouseLeftButtonUp;
         }
 
-        void GAMEWindowMAO_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            _main = null;
-            _options = null;
-        }
-
         void WindowOptionsButton_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (MainFrame != null)
@@ -122,6 +116,23 @@ namespace GAME.Common.Core.Views
                 else
                     MainFrame.Content = _options;
             }
+        }
+
+        #endregion
+
+        #region Cleaning up
+
+        protected override void Dispose(Boolean disposing)
+        {
+            if (_disposed)
+                return;
+            if (disposing)
+            {
+                _main = null;
+                _options = null;
+            }
+            _disposed = true;
+            base.Dispose(disposing);
         }
 
         #endregion

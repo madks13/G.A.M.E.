@@ -11,6 +11,7 @@ namespace GAME.Modules.Warframe.AlertScanner
     public class Module : CoreModule
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private ModuleWindow _mainWindow;
 
         public Module() : base("Alert Scanner")
         {
@@ -23,57 +24,58 @@ namespace GAME.Modules.Warframe.AlertScanner
             if (_mw == null)
             {
                 log.Info("Instantiating module window");
-                _mw = new ModuleWindow(Name);
-                ((ModuleWindow)_mw).Closed += ModuleStopping;
+                _mw = _mainWindow = new ModuleWindow(Name);
+                _mainWindow.Closed += ModuleStopping;
             }
             _mw.Show();
         }
 
-        public override string Name
+        public override String Name
         {
             get { return _name; }
         }
 
-        public override Boolean ShowMain()
+        public override void ShowMain()
         {
             log.Info("Showing main page");
             IniializeAll();
-            return ((ModuleWindow)_mw).ShowMain();
+            _mainWindow.ShowMain();
         }
 
-        public override Boolean Stop()
+        public override void Stop()
         {
             log.Info("Stopping module");
-            if (_mw != null)
+            if (_mainWindow != null)
             {
                 log.Info("Closing module window");
-                ((ModuleWindow)_mw).Close();
+                _mainWindow.Close();
+                _mainWindow = null;
             }
-            return base.Stop();
+            base.Stop();
         }
 
-        public override Boolean Hide()
+        public override void Hide()
         {
             log.Info("Hiding module window");
-            IniializeAll();
-            return base.Hide();
+            //IniializeAll();
+            base.Hide();
         }
 
-        public override Boolean ShowOptions()
+        public override void ShowOptions()
         {
             log.Info("Showing options page");
             IniializeAll();
-            return ((ModuleWindow)_mw).ShowOptions();
+            _mainWindow.ShowOptions();
         }
 
         public override bool IsShowingMain
         {
-            get { return ((ModuleWindow)_mw).IsShowingMain; }
+            get { return _mainWindow.IsShowingMain; }
         }
 
         public override bool IsShowingOptions
         {
-            get { return ((ModuleWindow)_mw).IsShowingOptions; }
+            get { return _mainWindow.IsShowingOptions; }
         }
 
         protected void ModuleStopping()

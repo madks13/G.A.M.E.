@@ -1,8 +1,7 @@
 ﻿using GAME.Common.Core.Interfaces.Plugin;
 using GAME.Common.Core.ViewModels;
-using GAME.Common.Missions.Interfaces;
+using GAME.Modules.Warframe.Common.Missions.Interfaces;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 
 namespace GAME.Modules.Warframe.AlertScanner.Models
 {

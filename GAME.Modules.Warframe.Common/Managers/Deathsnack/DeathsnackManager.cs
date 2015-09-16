@@ -8,7 +8,7 @@ using System.Dynamic;
 using System.Net;
 using System.Web.Helpers;
 
-namespace GAME.Common.Managers.Modules.Deathsnack
+namespace GAME.Modules.Warframe.Common.Managers.Modules.Deathsnack
 {
     class DeathsnackManager : IManagerDataGetter
     {

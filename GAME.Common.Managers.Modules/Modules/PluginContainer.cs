@@ -74,14 +74,19 @@ namespace GAME.Common.Managers.Modules
             log.Info("Begining attempt to load plugin in " + path);
 
             //Create domain with base directory in assembly directory
-            //Activate shadow copyion so files can be edited
+            //Activate shadow copying so files can be edited while they are used
             AppDomainSetup s = new AppDomainSetup();
             s.ApplicationName = Path.GetFileNameWithoutExtension(path);
             s.ApplicationBase = Path.GetDirectoryName(path);
             s.CachePath = Path.Combine(Path.GetDirectoryName(path), "cache" + Path.DirectorySeparatorChar);
             s.ShadowCopyFiles = "true";
-            s.ShadowCopyDirectories = Path.Combine(Path.GetDirectoryName(path), "sc" + Path.DirectorySeparatorChar);
+            s.ShadowCopyDirectories = null;// Path.Combine(Path.GetDirectoryName(path), "sc" + Path.DirectorySeparatorChar);
             _domain = AppDomain.CreateDomain(Path.GetFileNameWithoutExtension(path), null, s);
+            log.Info("Paths for domain " + s.ApplicationName + " are : ");
+            log.Info("Application base : " + s.ApplicationBase);
+            log.Info("Cache path : " + s.CachePath);
+            log.Info("Shadow copy files : " + s.ShadowCopyFiles);
+            log.Info("Shadow copy folders : " + s.ShadowCopyDirectories);
             if (_domain == null)
                 log.Info("Creating a new domain failed for the path " + _path);
             
@@ -95,17 +100,14 @@ namespace GAME.Common.Managers.Modules
             
             //This will return all classes with IPlugin interface
             //Each can instantiate only one IModule
-            //List<IPlugin> list = loader.GetAssembly(path, typeof(IPlugin));
             List<Plugin.CorePlugin> list = loader.GetAssembly(path, typeof(Plugin.CorePlugin));
             if (list != null)
             {
                 log.Info("Returned plugin list has " + list.Count + " elements");
-                //foreach (IPlugin p in list)
                 foreach (Plugin.CorePlugin p in list)
                 {
-                    if (p != null /*&& RegisterSponsor(p)*/)
+                    if (p != null)
                     {
-                        //_modules.Add(p);
                         _plugins.Add(p);
                         log.Info("Added plugin " + p.Name);
                     }
@@ -129,17 +131,11 @@ namespace GAME.Common.Managers.Modules
                 if (plugin.Name == name)
                     return plugin.GetInstance<Tmod>(); ;
             }
-            //foreach (IPlugin plugin in _modules)
-            //{
-            //    if (plugin.Name == name)
-            //        return plugin.GetInstance<Tmod>();;
-            //}
             return null;
         }
         
         public void UnloadPlugin()
         {
-            //foreach (IPlugin p in _modules)
             foreach (IPlugin p in _plugins)
             {
                 
@@ -181,5 +177,14 @@ namespace GAME.Common.Managers.Modules
         //#endregion
 
         #endregion
+
+
+        public bool ReloadPlugin()
+        {
+            if (String.IsNullOrEmpty(_path))
+                return false;
+            UnloadPlugin();
+            return LoadPlugin(_path);
+        }
     }
 }

@@ -23,6 +23,8 @@ namespace GAME.Common.Plugin
 
         public abstract String Name { get; }
 
+        public abstract String Version { get; }
+
         public Tmod GetInstance<Tmod>() where Tmod : class
         {
             if (typeof(Tmod).IsAssignableFrom(_moduleType)) 
@@ -66,21 +68,6 @@ namespace GAME.Common.Plugin
             return null;
         }
 
-        //public override Object InitializeLifetimeService()
-        //{
-        //    ILease lease = (ILease)base.InitializeLifetimeService();
-
-        //    // Normally, the initial lease time would be much longer.
-        //    // It is shortened here for demonstration purposes.
-        //    if (lease.CurrentState == LeaseState.Initial)
-        //    {
-        //        lease.InitialLeaseTime = TimeSpan.Zero;
-        //        //lease.SponsorshipTimeout = TimeSpan.FromHours(1);
-        //        //lease.RenewOnCallTime = TimeSpan.FromHours(1);
-        //    }
-        //    return lease;
-        //}
-
         public Boolean IsLaunched
         {
             get { return (_moduleInstance != null && _moduleInstance.IsLaunched); }
@@ -90,33 +77,6 @@ namespace GAME.Common.Plugin
         {
             get { return _moduleInstance != null; }
         }
-
-        //#region PropertyChangedEventHandler
-
-        //public event PropertyChangedEventHandler PropertyChanged;
-
-        //protected void RaisePropertyChanged(string propertyName)
-        //{
-        //    var handler = PropertyChanged;
-
-        //    if (handler != null)
-        //    {
-        //        handler(this, new PropertyChangedEventArgs(propertyName));
-        //    }
-        //}
-
-        //protected void NotifyPropertyChanged(string propName)
-        //{
-        //    if (PropertyChanged != null)
-        //        PropertyChanged(this, new PropertyChangedEventArgs(propName));
-        //}
-
-        //private void OnLaunchedStatusChanged(object sender, PropertyChangedEventArgs e)
-        //{
-        //    NotifyPropertyChanged("IsLaunched");
-        //}
-
-        //#endregion
 
         public void UnloadModule()
         {

@@ -7,11 +7,11 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WAM.Desktop")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("GAME.Desktop")]
+[assembly: AssemblyDescription("Ths program is made to work with extensions that use it's plugin contract.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("WAM.Desktop")]
+[assembly: AssemblyProduct("GAME.Desktop")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

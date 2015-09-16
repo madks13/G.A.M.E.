@@ -21,7 +21,9 @@ namespace GAME.Modules.Warframe.AlertScanner.Views
         #region Fields
 
         private ViewModels.AlertScanner _scanner;
-        private Boolean disposed = false;
+        private Boolean _disposed = false;
+        private Main _main;
+        private Options _options;
 
         #endregion
 
@@ -33,11 +35,10 @@ namespace GAME.Modules.Warframe.AlertScanner.Views
         {
             DataContext = this;
             _scanner = new ViewModels.AlertScanner();
-            OptionsPage = new Views.Options(_scanner.Options_Data);
-            MainPage = new Views.Main(_scanner.Main_Data, _scanner.Options_Data);
-            ((Views.Main)MainPage).RaisedRefreshAsked += RefreshAlerts;
+            OptionsPage = _options = new Views.Options(_scanner.Options_Data);
+            MainPage = _main = new Views.Main(_scanner.Main_Data, _scanner.Options_Data);
+            _main.RaisedRefreshAsked += RefreshAlerts;
             MainFrame.Content = MainPage;
-            Closing += ModuleWindow_Closing;
             //Closed += Close;
         }
 
@@ -56,12 +57,6 @@ namespace GAME.Modules.Warframe.AlertScanner.Views
 
         #region Events
 
-        #region Mouse events
-
-        #region Click events
-
-        #region Window events
-
         private void RefreshAlerts()
         {
             _scanner.Refresh();
@@ -72,40 +67,44 @@ namespace GAME.Modules.Warframe.AlertScanner.Views
             base.OnApplyTemplate();
             Init();
         }
-        void ModuleWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (!disposed)
-            {
-                disposed = true;
-                if (_main != null)
-                    ((Views.Main)_main).Dispose();
-                _scanner.Dispose();
-                _scanner = null;
-            }
-        }
-
+        
         private void OptionsClosed(object sender, Options.ClosureEventArgs e)
         {
-            MainFrame.Content = _main;
+            MainFrame.Content = MainPage;
         }
 
         private void WindowEvent_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (MainFrame.Content == _main)
-                MainFrame.Content = _options;
+            if (MainFrame.Content == MainPage)
+                MainFrame.Content = OptionsPage;
             else
-                MainFrame.Content = _main;
+                MainFrame.Content = MainPage;
         }
 
         #endregion
 
-        #region Move Events
+        #region Cleaning up
 
-        #endregion
-
-        #endregion
-
-        #endregion
+        protected override void Dispose(Boolean disposing)
+        {
+            if (_disposed)
+                return;
+            if (disposing)
+            {
+                if (_main != null)
+                {
+                    _main.Dispose();
+                    _main = null;
+                }
+                if (_scanner != null)
+                {
+                    _scanner.Dispose();
+                    _scanner = null;
+                }
+            }
+            _disposed = true;
+            base.Dispose(disposing);
+        }
 
         #endregion
 

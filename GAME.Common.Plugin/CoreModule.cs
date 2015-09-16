@@ -11,18 +11,18 @@ using System.Runtime.Remoting.Lifetime;
 
 namespace GAME.Common.Plugin
 {
-    public abstract class CoreModule : MarshalByRefObject, IModule
+    public abstract class CoreModule : MarshalByRefObject, IModule, IDisposable
     {
-        protected String _slotName = null;
-        protected Page _main = null;
-        protected Page _options = null;
+        //protected String _slotName = null;
+        //protected Page _main = null;
+        //protected Page _options = null;
         protected String _name = null;
         protected Window _mw = null;
+        private Boolean _disposed;
 
         protected CoreModule(String name)
         {
             _name = name;
-            //InitializeLifetimeService();
         }
 
         public override object InitializeLifetimeService()
@@ -30,20 +30,11 @@ namespace GAME.Common.Plugin
             return null;
         }
 
-        //public override Object InitializeLifetimeService()
-        //{
-        //    ILease lease = (ILease)base.InitializeLifetimeService();
-
-        //    // Normally, the initial lease time would be much longer.
-        //    // It is shortened here for demonstration purposes.
-        //    if (lease.CurrentState == LeaseState.Initial)
-        //    {
-        //        lease.InitialLeaseTime = TimeSpan.Zero;
-        //        //lease.SponsorshipTimeout = TimeSpan.FromHours(1);
-        //        //lease.RenewOnCallTime = TimeSpan.FromHours(1);
-        //    }
-        //    return lease;
-        //}
+        public Window MainWindow
+        {
+            get { return _mw; }
+            set { _mw = value; }
+        }
 
         public Boolean IsLaunched 
         {
@@ -70,55 +61,47 @@ namespace GAME.Common.Plugin
             get { return _name; }
         }
 
-        public abstract Boolean ShowMain();
+        public abstract void ShowMain();
 
-        public abstract Boolean ShowOptions();
+        public abstract void ShowOptions();
 
-        public virtual Boolean Hide()
-        {
-            if (_mw == null)
-                return false;
-            _mw.Hide();
-            return true;
-        }
-
-        public virtual Boolean Stop()
+        public virtual void Hide()
         {
             if (_mw != null)
             {
-                
-                _mw = null;
-                
-                //NotifyPropertyChanged("IsLaunched");
-                //NotifyPropertyChanged("IsVisible");
-                return true;
+                if (_mw.IsVisible == false)
+                    _mw.Show();
+                else
+                    _mw.Hide();
             }
-            return false;
         }
 
-        //#region PropertyChangedEventHandler
-
-        //public event PropertyChangedEventHandler PropertyChanged;
-
-        //protected void RaisePropertyChanged(string propertyName)
-        //{
-        //    var handler = PropertyChanged;
-
-        //    if (handler != null)
-        //    {
-        //        handler(this, new PropertyChangedEventArgs(propertyName));
-        //    }
-        //}
-
-        //protected void NotifyPropertyChanged(string propName)
-        //{
-        //    if (PropertyChanged != null)
-        //        PropertyChanged(this, new PropertyChangedEventArgs(propName));
-        //}
-
-        //#endregion
-
+        public virtual void Stop()
+        {
+            if (_mw != null)
+            {
+                _mw.Close();
+                _mw = null;
+            }
+        }
 
         public event EventHandler Closed;
+
+        protected virtual void Dispose(Boolean disposing)
+        {
+            if (_disposed)
+                return;
+            if (disposing)
+            {
+                Stop();
+            }
+            _disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
     }
 }

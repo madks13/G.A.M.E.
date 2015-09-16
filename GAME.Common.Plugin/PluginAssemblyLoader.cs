@@ -15,7 +15,6 @@ namespace GAME.Common.Plugin
     {
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        //public List<IPlugin> GetAssembly(String path, Type pluginType)
         public List<Plugin.CorePlugin> GetAssembly(String path, Type pluginType)
         {
             log.Info("Attemptimng to load file " + path + " for the plugin type " + pluginType.Name);
@@ -25,22 +24,16 @@ namespace GAME.Common.Plugin
                 Assembly res = Assembly.Load(AssemblyName.GetAssemblyName(path));
 
                 List<ObjRef> plugins = new List<ObjRef>();
-                //List<IPlugin> plugs = new List<IPlugin>();
                 List<Plugin.CorePlugin> plugs = new List<Plugin.CorePlugin>();
-                var sponsor = new Sponsor();
 
                 foreach (Type t in res.GetTypes())
                 {
                     if (pluginType.IsAssignableFrom(t) && t != pluginType)
                     {
-                        //IPlugin plugin = AppDomain.CurrentDomain.CreateInstanceAndUnwrap(t.Assembly.FullName, t.FullName) as IPlugin;
                         Plugin.CorePlugin plugin = AppDomain.CurrentDomain.CreateInstanceAndUnwrap(t.Assembly.FullName, t.FullName) as Plugin.CorePlugin;
                         if (plugin != null)
                         {
-                            //ObjRef obj = RemotingServices.Marshal((MarshalByRefObject)plugin, null, typeof(IPlugin));
                             ObjRef obj = RemotingServices.Marshal((MarshalByRefObject)plugin, null, typeof(Plugin.CorePlugin));
-                            //var lease = ((MarshalByRefObject)plugin).InitializeLifetimeService() as ILease;
-                            //lease.Register(sponsor);
                             plugins.Add(obj);
                             plugs.Add(plugin);
                         }

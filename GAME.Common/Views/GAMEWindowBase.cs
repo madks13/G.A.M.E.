@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 
 namespace GAME.Common.Core.Views
 {
-    public class GAMEWindowBase : Window
+    public class GAMEWindowBase : Window, IDisposable
     {
         #region Enums
 
@@ -103,12 +103,13 @@ namespace GAME.Common.Core.Views
         private Frame _mainFrame = null;
         private Image _mainBackground = null;
         protected WindowClosed _windowClosed;
+        private Boolean _disposed = false;
 
         #endregion
 
         #region Methods
 
-        #region Inits
+        #region Initialisation
 
         private void Init()
         {
@@ -411,34 +412,26 @@ namespace GAME.Common.Core.Views
 
         void GAMEWindowBase_Closing(object sender, CancelEventArgs e)
         {
-            if (GAMEWindowClosing != null)
-            {
-                Delegate[] dels = GAMEWindowClosing.GetInvocationList();
-                //GAMEWindowClosing.
+            //if (GAMEWindowClosing != null)
+            //{
+            //    Delegate[] dels = GAMEWindowClosing.GetInvocationList();
 
-                GAMEWindowClosing(this, e);
-            }
+            //    GAMEWindowClosing(this, e);
+            //}
             if (!e.Cancel)
             {
-                if (Closed != null)
-                    Closed();
+                //if (Closed != null)
+                //    Closed();
 
-                if (_images != null)
-                {
-                    foreach (var p in _images)
-                    {
-                        if (p.Value.StreamSource != null)
-                            p.Value.StreamSource.Dispose();
-                    }
-                    _images.Clear();
-                    _images = null;
-                }
+                Dispose();
             }
         }
 
         #endregion
 
         #region Special
+
+        #region Initialisation
 
         private HwndSource _hwndSource;
 
@@ -452,6 +445,10 @@ namespace GAME.Common.Core.Views
         {
             _hwndSource = (HwndSource)PresentationSource.FromVisual(this);
         }
+
+        #endregion
+
+        #region Flashing
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -561,6 +558,10 @@ namespace GAME.Common.Core.Views
                 StopFlashingWindow(_hwndSource.Handle);
         }
 
+        #endregion
+
+        #region Informing
+
         public void Inform(object informationObject)
         {
             if (MainInfo != null)
@@ -568,6 +569,38 @@ namespace GAME.Common.Core.Views
         }
 
         #endregion
+
+        #endregion
+
+        #endregion
+
+        #region Cleaning up
+
+        protected virtual void Dispose(Boolean disposing)
+        {
+            if (_disposed)
+                return;
+            if (disposing)
+            {
+                if (_images != null)
+                {
+                    foreach (var p in _images)
+                    {
+                        if (p.Value.StreamSource != null)
+                            p.Value.StreamSource.Dispose();
+                    }
+                    _images.Clear();
+                    _images = null;
+                }
+            }
+            _disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
         #endregion
 

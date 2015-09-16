@@ -32,7 +32,8 @@ namespace GAME.Desktop.Views
         private ObservableCollection<IPlugin> _modules = new ObservableCollection<IPlugin>();
         private Settings _settings = null;
         private ManagerModules _modmanager;
-        private Boolean _templateLoaded = false;
+        private Boolean _disposed = false;
+        //private Boolean _templateLoaded = false;
 
         #endregion
 
@@ -78,7 +79,6 @@ namespace GAME.Desktop.Views
             MainFrame.Content = MainPage;
             
             //Closed += Close;
-            Closing += MainWindow_Closing;
             //GAMEWindowClosing += MainWindow_GAMEWindowClosing;
         }
 
@@ -98,18 +98,11 @@ namespace GAME.Desktop.Views
             Init();
         }
 
-        //void WindowOptionsButton_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        //{
-        //    if (MainFrame.Content == _options)
-        //        MainFrame.Content = _main;
-        //    else
-        //        MainFrame.Content = _options;
-        //}
-
         #endregion
+
         private void OptionsClosed(object sender, Options.ClosureEventArgs e)
         {
-            MainFrame.Content = _main;
+            MainFrame.Content = MainPage;
             if (!String.IsNullOrEmpty(_settings.PluginPath))
             {
                 _modmanager.DelPaths();
@@ -117,37 +110,27 @@ namespace GAME.Desktop.Views
             }
         }
 
-        void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        protected override void Dispose(Boolean disposing)
         {
-            if (_main != null)
-                _main = null;
-            if (_options != null)
-                _options = null;
-            if (_modules != null)
+            if (_disposed)
+                return;
+            if (disposing)
             {
-                _modules.Clear();
-                _modules = null;
+                if (_modules != null)
+                {
+                    _modules.Clear();
+                    _modules = null;
+                }
+                if (_modmanager != null)
+                {
+                    _modmanager.UnloadModules();
+                    _modmanager = null;
+                }
             }
-            if (_modmanager != null)
-                _modmanager.UnloadModules();
+            _disposed = true;
+            base.Dispose(disposing);
         }
 
-        //public new void Close()
-        //{
-        //    if (_main != null)
-        //        _main = null;
-        //    if (_options != null)
-        //        _options = null;
-        //    if (_modules != null)
-        //    {
-        //        _modules.Clear();
-        //        _modules = null;
-        //    }
-        //    if (_modmanager != null)
-        //        _modmanager.UnloadModules();
-
-        //    base.Close();
-        //}
         #endregion
     }
 }

@@ -7,6 +7,7 @@ using System.Runtime.Remoting;
 
 using GAME.Common.Plugin;
 using GAME.Common.Core.Interfaces;
+using System.Reflection;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 namespace GAME.Modules.Warframe.AlertScanner
@@ -31,6 +32,11 @@ namespace GAME.Modules.Warframe.AlertScanner
         public override string Name
         {
             get { return @"Alert Scanner"; }
+        }
+
+        public override string Version
+        {
+            get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
         }
     }
 }

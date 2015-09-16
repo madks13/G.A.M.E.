@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using GAME.Common.Core.ViewModels;
+using GAME.Modules.Warframe.Common.Missions.Interfaces;
+using GAME.Modules.Warframe.Common.Missions.Models.Activity;
 using GAME.Modules.Warframe.AlertScanner.Models;
-using GAME.Common.Core.ViewModels;
-using GAME.Common.Managers.RSS;
-using System.Threading.Tasks;
-using GAME.Common.Missions.Interfaces;
-using System.Timers;
-using GAME.Common.Missions.Models.Activity;
+using GAME.Modules.Warframe.Common.Managers.RSS;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Windows.Media;
-using System.IO;
-using System.Windows.Threading;
+using System.Linq;
 
 namespace GAME.Modules.Warframe.AlertScanner.ViewModels
 {
@@ -67,9 +62,9 @@ namespace GAME.Modules.Warframe.AlertScanner.ViewModels
                 IActivity activity = _mData.Activities.Where(i => i.Id == f.Id).FirstOrDefault();
                 if (activity == null)
                 {
-                    switch ((GAME.Common.Missions.Enums.Type)System.Enum.Parse(typeof(GAME.Common.Missions.Enums.Type), f.Author, true))
+                    switch ((GAME.Modules.Warframe.Common.Missions.Enums.Type)System.Enum.Parse(typeof(GAME.Modules.Warframe.Common.Missions.Enums.Type), f.Author, true))
                     {
-                        case GAME.Common.Missions.Enums.Type.Alert:
+                        case GAME.Modules.Warframe.Common.Missions.Enums.Type.Alert:
                             //Information to set different from other activities
                             //It is separated because of the instantiation of different classes
                             activity = new Alert(f.Title);
@@ -78,10 +73,10 @@ namespace GAME.Modules.Warframe.AlertScanner.ViewModels
                             ((Alert)activity).ExpirationDate = f.ExpireDate;
                             //a.Faction = (E_Factions)System.Enum.Parse(typeof(E_Factions), f.Faction.Split('_')[1], true);
                             break;
-                        case GAME.Common.Missions.Enums.Type.Outbreak:
+                        case GAME.Modules.Warframe.Common.Missions.Enums.Type.Outbreak:
                             activity = new Outbreak(f.Title);
                             break;
-                        case GAME.Common.Missions.Enums.Type.Invasion:
+                        case GAME.Modules.Warframe.Common.Missions.Enums.Type.Invasion:
                             activity = new Invasion(f.Title);
                             break;
                         default:
@@ -108,12 +103,12 @@ namespace GAME.Modules.Warframe.AlertScanner.ViewModels
         private async void UpdateAlerts()
         {
             List<IActivity> al = new List<IActivity>();
-            if (_oData.Platforms.HasFlag(GAME.Common.Missions.Enums.Platforms.PC))
-                    al.AddRange(FeedToActivity(await _rssManager.GetFeeds(_oData.RssPC), GAME.Common.Missions.Enums.Platforms.PC));
-            if (_oData.Platforms.HasFlag(GAME.Common.Missions.Enums.Platforms.PS4))
-                al.AddRange(FeedToActivity(await _rssManager.GetFeeds(_oData.RssPS4), GAME.Common.Missions.Enums.Platforms.PS4));
-            if (_oData.Platforms.HasFlag(GAME.Common.Missions.Enums.Platforms.XB1))
-                al.AddRange(FeedToActivity(await _rssManager.GetFeeds(_oData.RssXBoxOne), GAME.Common.Missions.Enums.Platforms.XB1));
+            if (_oData.Platforms.HasFlag(GAME.Modules.Warframe.Common.Missions.Enums.Platforms.PC))
+                    al.AddRange(FeedToActivity(await _rssManager.GetFeeds(_oData.RssPC), GAME.Modules.Warframe.Common.Missions.Enums.Platforms.PC));
+            if (_oData.Platforms.HasFlag(GAME.Modules.Warframe.Common.Missions.Enums.Platforms.PS4))
+                al.AddRange(FeedToActivity(await _rssManager.GetFeeds(_oData.RssPS4), GAME.Modules.Warframe.Common.Missions.Enums.Platforms.PS4));
+            if (_oData.Platforms.HasFlag(GAME.Modules.Warframe.Common.Missions.Enums.Platforms.XB1))
+                al.AddRange(FeedToActivity(await _rssManager.GetFeeds(_oData.RssXBoxOne), GAME.Modules.Warframe.Common.Missions.Enums.Platforms.XB1));
             _mData.Activities = al;
         }
 

@@ -6,13 +6,13 @@ using GAME.Common.Core.Interfaces.Tools;
 using GAME.Modules.Warframe.AlertScanner.Models;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
-using GAME.Common.Missions.Interfaces;
+using GAME.Modules.Warframe.Common.Missions.Interfaces;
 using GAME.Common.Core.Models;
 using GAME.Common.Core.Models.Collections;
 using System.ComponentModel;
 using System;
 using System.Linq;
-using GAME.Common.Missions.Models.Grouping;
+using GAME.Modules.Warframe.Common.Missions.Models.Grouping;
 using System.Windows.Media.Imaging;
 using GAME.Common.Core.Interfaces;
 using System.Collections.Specialized;
@@ -128,7 +128,7 @@ namespace GAME.Modules.Warframe.AlertScanner.Views
 
             foreach (IActivity a in _mData.Activities)
             {
-                if (a.Type == (Enum)GAME.Common.Missions.Enums.Type.Alert)
+                if (a.Type == (Enum)GAME.Modules.Warframe.Common.Missions.Enums.Type.Alert)
                     _timedActivities.Add(a);
                 String pName = Enum.GetName(a.Platform.GetType(), a.Platform);
                 String tName = Enum.GetName(a.Type.GetType(), a.Type);
@@ -173,8 +173,8 @@ namespace GAME.Modules.Warframe.AlertScanner.Views
                     platformGroup.OrderBy(g => g.GroupName);
                     foreach (var typeGroup in platformGroup)
                     {
-                        if (typeGroup.GroupName == Enum.GetName(typeof(GAME.Common.Missions.Enums.Type), GAME.Common.Missions.Enums.Type.Alert))
-                            typeGroup.OrderBy(a => ((GAME.Common.Missions.Models.Activity.Alert)a).TimeLeft);
+                        if (typeGroup.GroupName == Enum.GetName(typeof(GAME.Modules.Warframe.Common.Missions.Enums.Type), GAME.Modules.Warframe.Common.Missions.Enums.Type.Alert))
+                            typeGroup.OrderBy(a => ((GAME.Modules.Warframe.Common.Missions.Models.Activity.Alert)a).TimeLeft);
                         else
                             typeGroup.OrderBy(a => a.PublishDate);
                     }
@@ -202,9 +202,9 @@ namespace GAME.Modules.Warframe.AlertScanner.Views
 
         private void UpdatePlatforms()
         {
-            LogoPC.Content = _images[(_oData.Platforms.HasFlag(GAME.Common.Missions.Enums.Platforms.PC) ? ImageIndex.PC_A : ImageIndex.PC_I)];
-            LogoPS4.Content = _images[(_oData.Platforms.HasFlag(GAME.Common.Missions.Enums.Platforms.PS4) ? ImageIndex.PS4_A : ImageIndex.PS4_I)];
-            LogoXB1.Content = _images[(_oData.Platforms.HasFlag(GAME.Common.Missions.Enums.Platforms.XB1) ? ImageIndex.XB1_A : ImageIndex.XB1_I)];
+            LogoPC.Content = _images[(_oData.Platforms.HasFlag(GAME.Modules.Warframe.Common.Missions.Enums.Platforms.PC) ? ImageIndex.PC_A : ImageIndex.PC_I)];
+            LogoPS4.Content = _images[(_oData.Platforms.HasFlag(GAME.Modules.Warframe.Common.Missions.Enums.Platforms.PS4) ? ImageIndex.PS4_A : ImageIndex.PS4_I)];
+            LogoXB1.Content = _images[(_oData.Platforms.HasFlag(GAME.Modules.Warframe.Common.Missions.Enums.Platforms.XB1) ? ImageIndex.XB1_A : ImageIndex.XB1_I)];
         }
 
         private void Refresh_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -212,7 +212,7 @@ namespace GAME.Modules.Warframe.AlertScanner.Views
             Rescan();
         }
 
-        private void AddRemovePlaform(GAME.Common.Missions.Enums.Platforms platform)
+        private void AddRemovePlaform(GAME.Modules.Warframe.Common.Missions.Enums.Platforms platform)
         {
             _oData.Platforms ^= platform;
         }
@@ -221,11 +221,11 @@ namespace GAME.Modules.Warframe.AlertScanner.Views
         {
             Button b = sender as Button;
             if (b.Name == LogoPC.Name)
-                AddRemovePlaform(GAME.Common.Missions.Enums.Platforms.PC);
+                AddRemovePlaform(GAME.Modules.Warframe.Common.Missions.Enums.Platforms.PC);
             if (b.Name == LogoPS4.Name)
-                AddRemovePlaform(GAME.Common.Missions.Enums.Platforms.PS4);
+                AddRemovePlaform(GAME.Modules.Warframe.Common.Missions.Enums.Platforms.PS4);
             if (b.Name == LogoXB1.Name)
-                AddRemovePlaform(GAME.Common.Missions.Enums.Platforms.XB1);
+                AddRemovePlaform(GAME.Modules.Warframe.Common.Missions.Enums.Platforms.XB1);
         }
 
         private void Expander_Expanded(object sender, RoutedEventArgs e)

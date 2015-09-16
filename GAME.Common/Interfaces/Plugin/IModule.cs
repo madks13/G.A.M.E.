@@ -31,13 +31,13 @@ namespace GAME.Common.Core.Interfaces.Plugin
 
         #region Methods
 
-        Boolean ShowMain();
+        void ShowMain();
 
-        Boolean ShowOptions();
+        void ShowOptions();
 
-        Boolean Hide();
+        void Hide();
 
-        Boolean Stop();
+        void Stop();
 
         #endregion
     }

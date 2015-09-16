@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GAME.Common.Managers.RSS
+namespace GAME.Modules.Warframe.Common.Managers.RSS
 {
     public class FeedDTO
     {
