@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GAME.Common.Core.Interfaces
 {
-    public interface ISettings
+    public interface ISettings : IDictionary<String, object>
     {
     }
 }

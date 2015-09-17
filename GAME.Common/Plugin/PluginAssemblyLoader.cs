@@ -9,7 +9,7 @@ using System.Runtime.Remoting.Lifetime;
 using System.Text;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
-namespace GAME.Common.Plugin
+namespace GAME.Common.Core.Plugin
 {
     public class PluginAssemblyLoader : MarshalByRefObject
     {

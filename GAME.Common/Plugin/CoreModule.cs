@@ -9,7 +9,7 @@ using System.Windows.Forms.Integration;
 using System.Windows;
 using System.Runtime.Remoting.Lifetime;
 
-namespace GAME.Common.Plugin
+namespace GAME.Common.Core.Plugin
 {
     public abstract class CoreModule : MarshalByRefObject, IModule, IDisposable
     {

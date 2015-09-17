@@ -18,14 +18,15 @@ using GAME.Common.Core.Interfaces;
 using GAME.Common.Core.Interfaces.Plugin;
 using GAME.Common.Core.Interfaces.Managers;
 using GAME.Common.Core.Interfaces.Tools;
-using GAME.Common.Tools.Finder;
+using GAME.Common.Core.Plugin;
+using GAME.Common.Core.Tools.Finder;
 using System.Text;
 
 #endregion
 
 #endregion
 
-namespace GAME.Common.Managers.Modules
+namespace GAME.Common.Core.Managers
 {
     public class ManagerModules : IManagerModules
     {
@@ -176,8 +177,6 @@ namespace GAME.Common.Managers.Modules
         #endregion
 
         #endregion
-
-
 
         public void UnloadModules()
         {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Remoting;
 
-using GAME.Common.Plugin;
+using GAME.Common.Core.Plugin;
 using GAME.Common.Core.Interfaces;
 using System.Reflection;
 

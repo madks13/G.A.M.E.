@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Runtime.Remoting;
 
-using GAME.Common.Plugin;
+using GAME.Common.Core.Plugin;
 using GAME.Common.Core.Interfaces;
 using GAME.Modules.Warframe.AlertScanner.Views;
 

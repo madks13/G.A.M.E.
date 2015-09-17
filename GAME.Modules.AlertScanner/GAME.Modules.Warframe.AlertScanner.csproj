@@ -113,10 +113,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GAME.Common.Plugin\GAME.Common.Plugin.csproj">
-      <Project>{8a34b8ec-75e4-4bf1-9f37-36c50448cab5}</Project>
-      <Name>GAME.Common.Plugin</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GAME.Common\GAME.Common.Core.csproj">
       <Project>{098a3f2b-dff3-4593-a750-d0d81c6e708d}</Project>
       <Name>GAME.Common.Core</Name>

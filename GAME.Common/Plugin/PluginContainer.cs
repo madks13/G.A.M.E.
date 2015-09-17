@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Remoting;
-using GAME.Common.Plugin;
+using GAME.Common.Core.Plugin;
 using GAME.Common.Core.Interfaces;
 using GAME.Common.Core.Interfaces.Plugin;
 using System.Linq;
@@ -13,7 +13,7 @@ using System.Windows;
 using System.Runtime.Remoting.Lifetime;
 using System.Text;
 
-namespace GAME.Common.Managers.Modules
+namespace GAME.Common.Core.Plugin
 {
     public class PluginContainer : IPluginContainer
     {
@@ -23,7 +23,7 @@ namespace GAME.Common.Managers.Modules
         private String _path = "";
         private AppDomain _domain = null;
         private List<IPlugin> _modules = new List<IPlugin>();
-        private List<Plugin.CorePlugin> _plugins = new List<Plugin.CorePlugin>();
+        private List<CorePlugin> _plugins = new List<CorePlugin>();
 
         #endregion
 
@@ -100,11 +100,11 @@ namespace GAME.Common.Managers.Modules
             
             //This will return all classes with IPlugin interface
             //Each can instantiate only one IModule
-            List<Plugin.CorePlugin> list = loader.GetAssembly(path, typeof(Plugin.CorePlugin));
+            List<CorePlugin> list = loader.GetAssembly(path, typeof(CorePlugin));
             if (list != null)
             {
                 log.Info("Returned plugin list has " + list.Count + " elements");
-                foreach (Plugin.CorePlugin p in list)
+                foreach (CorePlugin p in list)
                 {
                     if (p != null)
                     {

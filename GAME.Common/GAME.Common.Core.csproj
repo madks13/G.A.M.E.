@@ -40,6 +40,10 @@
     <AssemblyOriginatorKeyFile>GAMESignature.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -87,7 +91,13 @@
     <Compile Include="Models\Collections\PluginGroup.cs" />
     <Compile Include="Models\Extensions\StyleRefExtension.cs" />
     <Compile Include="Models\Extensions\StylesDictionaryRefExtension.cs" />
+    <Compile Include="Plugin\CoreModule.cs" />
+    <Compile Include="Plugin\CorePlugin.cs" />
+    <Compile Include="Managers\ModulesManager.cs" />
+    <Compile Include="Plugin\PluginAssemblyLoader.cs" />
+    <Compile Include="Plugin\PluginContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\Finder\Finder.cs" />
     <Compile Include="ViewModels\PropertiesObserver.cs" />
     <Compile Include="Views\GAMEPageBase.cs" />
     <Compile Include="Views\GAMEWindowBase.cs" />
@@ -150,9 +160,7 @@
     <None Include="GAMESignature.pfx" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\Plugin\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

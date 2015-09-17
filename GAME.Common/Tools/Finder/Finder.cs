@@ -5,7 +5,7 @@ using System.Linq;
 using GAME.Common.Core.Interfaces.Tools;
 using System.Text;
 
-namespace GAME.Common.Tools.Finder
+namespace GAME.Common.Core.Tools.Finder
 {
     public class Finder : IFinder
     {

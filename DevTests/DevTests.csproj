@@ -55,10 +55,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GAME.Common.Tools.Finder\GAME.Common.Tools.csproj">
-      <Project>{907413e6-5e3c-4641-81ed-bf4ba8ff289b}</Project>
-      <Name>GAME.Common.Tools</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GAME.Common\GAME.Common.Core.csproj">
       <Project>{098a3f2b-dff3-4593-a750-d0d81c6e708d}</Project>
       <Name>GAME.Common.Core</Name>

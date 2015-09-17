@@ -9,7 +9,7 @@ using GAME.Common.Core.Interfaces;
 using GAME.Common.Core.Interfaces.Plugin;
 using System.Runtime.Remoting.Lifetime;
 
-namespace GAME.Common.Plugin
+namespace GAME.Common.Core.Plugin
 {
     public abstract class CorePlugin: MarshalByRefObject, IPlugin
     {

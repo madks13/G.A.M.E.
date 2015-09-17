@@ -69,7 +69,7 @@
                                     <Label x:Name="MainTitle" FontFamily="Segoe UI" FontSize="18" Background="{TemplateBinding Background}" Foreground="{TemplateBinding BorderBrush}" 
                                        VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0"/>
                                     <Rectangle Stroke="{x:Null}" Grid.ColumnSpan="5" Fill="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" x:Name="DragTop"/>
-                                    <custom:GAMEOutlinedLabel Name="TestingLabel" Content="Testing Outlined Label"/>
+                                    <custom:GAMEOutlinedLabel Foreground="White" Name="TestingLabel" Content="Testing Outlined Label" BorderBrush="Aqua" BorderThickness="2" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center"/>
                                     <Button Grid.Column="1" x:Name="WindowOptionsButton" Style="{StaticResource ResourceKey=GAMEBaseWindowButton}"/>
                                     <Button Grid.Column="2" x:Name="WindowMinimizeButton" Style="{StaticResource ResourceKey=GAMEBaseWindowButton}"/>
                                     <Button Grid.Column="3" x:Name="WindowMaximizeButton" Style="{StaticResource ResourceKey=GAMEBaseWindowButton}"/>
@@ -100,17 +100,17 @@
         </Setter>
     </Style>
 
-    <!--<Style TargetType="{x:Type custom:GAMEOutlinedLabel}">
+    <Style TargetType="{x:Type custom:GAMEOutlinedLabel}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type custom:GAMEOutlinedLabel}">
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                        <Label Content="{TemplateBinding Content}" FontSize="{TemplateBinding FontSize}"/>
+                        <Label Content="{TemplateBinding Content}" FontSize="{TemplateBinding FontSize}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>-->
+    </Style>
 </ResourceDictionary>

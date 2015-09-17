@@ -70,10 +70,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GAME.Common.Plugin\GAME.Common.Plugin.csproj">
-      <Project>{8a34b8ec-75e4-4bf1-9f37-36c50448cab5}</Project>
-      <Name>GAME.Common.Plugin</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GAME.Common.Tools.Finder\GAME.Common.Tools.csproj">
       <Project>{907413e6-5e3c-4641-81ed-bf4ba8ff289b}</Project>
       <Name>GAME.Common.Tools</Name>
