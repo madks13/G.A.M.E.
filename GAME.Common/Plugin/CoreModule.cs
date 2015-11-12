@@ -13,9 +13,6 @@ namespace GAME.Common.Core.Plugin
 {
     public abstract class CoreModule : MarshalByRefObject, IModule, IDisposable
     {
-        //protected String _slotName = null;
-        //protected Page _main = null;
-        //protected Page _options = null;
         protected String _name = null;
         protected Window _mw = null;
         private Boolean _disposed;
@@ -85,7 +82,7 @@ namespace GAME.Common.Core.Plugin
             }
         }
 
-        public event EventHandler Closed;
+        //public event EventHandler Closed;
 
         protected virtual void Dispose(Boolean disposing)
         {

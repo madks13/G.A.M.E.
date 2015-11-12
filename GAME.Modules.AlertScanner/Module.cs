@@ -15,10 +15,10 @@ namespace GAME.Modules.Warframe.AlertScanner
 
         public Module() : base("Alert Scanner")
         {
-            IniializeAll();
+            ShowMainWindow();
         }
 
-        private void IniializeAll()
+        private void ShowMainWindow()
         {
             log.Info("Initializing");
             if (_mw == null)
@@ -38,8 +38,8 @@ namespace GAME.Modules.Warframe.AlertScanner
         public override void ShowMain()
         {
             log.Info("Showing main page");
-            IniializeAll();
-            _mainWindow.ShowMain();
+            ShowMainWindow();
+            _mainWindow.ShowPage(_mainWindow.FirstMainPage);
         }
 
         public override void Stop()
@@ -57,15 +57,14 @@ namespace GAME.Modules.Warframe.AlertScanner
         public override void Hide()
         {
             log.Info("Hiding module window");
-            //IniializeAll();
             base.Hide();
         }
 
         public override void ShowOptions()
         {
             log.Info("Showing options page");
-            IniializeAll();
-            _mainWindow.ShowOptions();
+            ShowMainWindow();
+            _mainWindow.ShowPage(_mainWindow.FirstOptionsPage);
         }
 
         public override bool IsShowingMain
@@ -78,7 +77,7 @@ namespace GAME.Modules.Warframe.AlertScanner
             get { return _mainWindow.IsShowingOptions; }
         }
 
-        protected void ModuleStopping()
+        protected void ModuleStopping(object sender, EventArgs e)
         {
             log.Info("Stopping module");
             base.Stop();

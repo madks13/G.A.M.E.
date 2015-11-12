@@ -15,7 +15,7 @@ namespace GAME.Modules.Warframe.AlertScanner.Views
     /// <summary>
     /// Interaction logic for BaseModuleWindow.xaml
     /// </summary>
-    public partial class ModuleWindow : GAMEWindowMAO
+    public partial class ModuleWindow : GAMEWindowCommon
     {
 
         #region Fields
@@ -35,11 +35,10 @@ namespace GAME.Modules.Warframe.AlertScanner.Views
         {
             DataContext = this;
             _scanner = new ViewModels.AlertScanner();
-            OptionsPage = _options = new Views.Options(_scanner.Options_Data);
-            MainPage = _main = new Views.Main(_scanner.Main_Data, _scanner.Options_Data);
+            FirstOptionsPage = _options = new Views.Options(_scanner.Options_Data);
+            FirstMainPage = _main = new Views.Main(_scanner.Main_Data, _scanner.Options_Data);
             _main.RaisedRefreshAsked += RefreshAlerts;
-            MainFrame.Content = MainPage;
-            //Closed += Close;
+            MainFrame.Content = FirstMainPage;
         }
 
         
@@ -50,7 +49,6 @@ namespace GAME.Modules.Warframe.AlertScanner.Views
         public ModuleWindow(String name) : base("G.A.M.E. : " + name)
         {
             InitializeComponent();
-            //Init();
         }
 
         #endregion
@@ -66,19 +64,6 @@ namespace GAME.Modules.Warframe.AlertScanner.Views
         {
             base.OnApplyTemplate();
             Init();
-        }
-        
-        private void OptionsClosed(object sender, Options.ClosureEventArgs e)
-        {
-            MainFrame.Content = MainPage;
-        }
-
-        private void WindowEvent_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            if (MainFrame.Content == MainPage)
-                MainFrame.Content = OptionsPage;
-            else
-                MainFrame.Content = MainPage;
         }
 
         #endregion

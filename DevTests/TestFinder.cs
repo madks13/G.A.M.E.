@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using GAME.Common.Core.Interfaces.Tools;
-using GAME.Common.Tools.Finder;
+using GAME.Common.Core.Tools.Finder;
 using System.IO;
 using System.Collections.Generic;
 

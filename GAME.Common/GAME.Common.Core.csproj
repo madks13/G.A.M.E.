@@ -66,8 +66,12 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\Custom\GAMEOutlinedLabel.cs" />
+    <Compile Include="Controls\Custom\GAMEOutlinedText.cs" />
+    <Compile Include="Controls\User\ValueFromInterval.xaml.cs">
+      <DependentUpon>ValueFromInterval.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\IGroup.cs" />
+    <Compile Include="Interfaces\IOption.cs" />
     <Compile Include="Interfaces\IPluginGroup.cs" />
     <Compile Include="Interfaces\ISettings.cs" />
     <Compile Include="Interfaces\Managers\IManagerDataGetter.cs" />
@@ -75,43 +79,65 @@
     <Compile Include="Interfaces\Pages\IOptionsPage.cs" />
     <Compile Include="Interfaces\Plugin\IDataPlugin.cs" />
     <Compile Include="Interfaces\Plugin\IModule.cs" />
-    <Compile Include="Interfaces\Plugin\IDataOptions.cs" />
     <Compile Include="Interfaces\Plugin\IModuleEvents.cs" />
     <Compile Include="Interfaces\Plugin\IPlugin.cs" />
     <Compile Include="Interfaces\Plugin\IPluginContainer.cs" />
     <Compile Include="Interfaces\Managers\IManagerModules.cs" />
-    <Compile Include="Interfaces\Plugin\IDataMain.cs" />
     <Compile Include="Interfaces\Tools\IFinder.cs" />
+    <Compile Include="Managers\OptionsManager.cs" />
+    <Compile Include="Managers\SettingsManager.cs" />
     <Compile Include="Models\ClosureEvent.cs" />
     <Compile Include="Models\Collections\Group.cs" />
     <Compile Include="Models\Collections\MTObservableCollection.cs" />
-    <Compile Include="Models\ObservableExpando.cs" />
+    <Compile Include="Models\Observable.cs" />
     <Compile Include="Models\Collections\ObservableGroup.cs" />
     <Compile Include="Models\Collections\ObservablePluginGroup.cs" />
     <Compile Include="Models\Collections\PluginGroup.cs" />
     <Compile Include="Models\Extensions\StyleRefExtension.cs" />
     <Compile Include="Models\Extensions\StylesDictionaryRefExtension.cs" />
+    <Compile Include="Models\Settings\Interval.cs" />
+    <Compile Include="Models\Settings\Option.cs" />
+    <Compile Include="Models\Settings\Options.cs" />
+    <Compile Include="Models\Settings\PluginInfo.cs" />
     <Compile Include="Plugin\CoreModule.cs" />
     <Compile Include="Plugin\CorePlugin.cs" />
     <Compile Include="Managers\ModulesManager.cs" />
     <Compile Include="Plugin\PluginAssemblyLoader.cs" />
     <Compile Include="Plugin\PluginContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\Downloader\Downloader.cs" />
+    <Compile Include="Tools\Downloader\WebClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Tools\DynamicTemplateSelector\DynamicTemplateSelector.cs" />
+    <Compile Include="Tools\DynamicTemplateSelector\Template.cs" />
     <Compile Include="Tools\Finder\Finder.cs" />
+    <Compile Include="Tools\Resourcer\Resource.cs" />
+    <Compile Include="Tools\Resourcer\Resourcer.cs" />
+    <Compile Include="Tools\Serializer\Serializer.cs" />
     <Compile Include="ViewModels\PropertiesObserver.cs" />
-    <Compile Include="Views\GAMEPageBase.cs" />
-    <Compile Include="Views\GAMEWindowBase.cs" />
-    <Compile Include="Views\GAMEWindowMAO.cs" />
+    <Compile Include="Views\GAMEOptions.xaml.cs">
+      <DependentUpon>GAMEOptions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GAMEWindowCommon.cs" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\Buttons\Close\GAME_Close_active.png" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\User\ValueFromInterval.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Templates\Default.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GAMEOptions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -160,7 +186,10 @@
     <None Include="GAMESignature.pfx" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Images\Buttons\About\GAME_About_active.png" />
+    <Resource Include="Resources\Images\Buttons\About\GAME_About_inactive.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

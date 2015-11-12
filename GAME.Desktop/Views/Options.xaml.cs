@@ -54,7 +54,7 @@ namespace GAME.Desktop.Views
         private void OptionsOk_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             _settings.Save();
-            RaiseOptionsClosed(new ClosureEventArgs(CloseReason.Validation));
+            NavigationService.GoBack();
         }
 
         private void OptionsApply_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -64,12 +64,12 @@ namespace GAME.Desktop.Views
 
         private void OptionsDefault_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            _settings.LoadDefaults();
+            _settings.ResetAll();
         }
 
         private void OptionsCancel_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            RaiseOptionsClosed(new ClosureEventArgs(CloseReason.Cancellation));
+            NavigationService.GoBack();
         }
 
         private void ButtonChooseModulesFolder_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -84,7 +84,7 @@ namespace GAME.Desktop.Views
 
                 if (!Directory.Exists(fbd.SelectedPath))
                     return;
-                _settings.PluginPath = fbd.SelectedPath;
+                _settings["ModulesFolder"].Value = fbd.SelectedPath;
                 
             }
         }

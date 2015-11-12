@@ -34,7 +34,7 @@
     </Style>
     
     <!-- Window style -->
-    <Style TargetType="{x:Type local:GAMEWindowBase}" x:Name="GAMEBaseStyle">
+    <Style TargetType="{x:Type local:GAMEWindowCommon}" x:Name="GAMEBaseStyle">
         <Setter Property="WindowStyle" Value="None"/>
         <Setter Property="AllowsTransparency" Value="True"/>
         <Setter Property="Background" Value="Transparent"/>
@@ -44,7 +44,7 @@
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:GAMEWindowBase}">
+                <ControlTemplate TargetType="{x:Type local:GAMEWindowCommon}">
                     <Grid>
                         <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="3" Background="Transparent">
                             <Grid Background="{TemplateBinding Background}">
@@ -65,15 +65,19 @@
                                         <ColumnDefinition Width="25"/>
                                         <ColumnDefinition Width="25"/>
                                         <ColumnDefinition Width="25"/>
+                                        <ColumnDefinition Width="25"/>
                                     </Grid.ColumnDefinitions>
-                                    <Label x:Name="MainTitle" FontFamily="Segoe UI" FontSize="18" Background="{TemplateBinding Background}" Foreground="{TemplateBinding BorderBrush}" 
-                                       VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0"/>
+                                    <!--<Label x:Name="MainTitle" FontFamily="Segoe UI" FontSize="18" Background="{TemplateBinding Background}" Foreground="{TemplateBinding BorderBrush}" 
+                                       VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0"/>-->
+                                    <Border Background="{TemplateBinding Background}">
+                                        <custom:GAMEOutlinedText x:Name="MainTitle" Text="Testing" Fill="{TemplateBinding BorderBrush}" FontSize="24" Font="Segoe UI" Bold="False" Stroke="Black" StrokeThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
                                     <Rectangle Stroke="{x:Null}" Grid.ColumnSpan="5" Fill="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" x:Name="DragTop"/>
-                                    <custom:GAMEOutlinedLabel Foreground="White" Name="TestingLabel" Content="Testing Outlined Label" BorderBrush="Aqua" BorderThickness="2" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center"/>
-                                    <Button Grid.Column="1" x:Name="WindowOptionsButton" Style="{StaticResource ResourceKey=GAMEBaseWindowButton}"/>
-                                    <Button Grid.Column="2" x:Name="WindowMinimizeButton" Style="{StaticResource ResourceKey=GAMEBaseWindowButton}"/>
-                                    <Button Grid.Column="3" x:Name="WindowMaximizeButton" Style="{StaticResource ResourceKey=GAMEBaseWindowButton}"/>
-                                    <Button Grid.Column="4" x:Name="WindowCloseButton" Style="{StaticResource ResourceKey=GAMEBaseWindowButton}"/>
+                                    <Button Grid.Column="1" x:Name="WindowAboutButton" Style="{StaticResource ResourceKey=GAMEBaseWindowButton}"/>
+                                    <Button Grid.Column="2" x:Name="WindowOptionsButton" Style="{StaticResource ResourceKey=GAMEBaseWindowButton}"/>
+                                    <Button Grid.Column="3" x:Name="WindowMinimizeButton" Style="{StaticResource ResourceKey=GAMEBaseWindowButton}"/>
+                                    <Button Grid.Column="4" x:Name="WindowMaximizeButton" Style="{StaticResource ResourceKey=GAMEBaseWindowButton}"/>
+                                    <Button Grid.Column="5" x:Name="WindowCloseButton" Style="{StaticResource ResourceKey=GAMEBaseWindowButton}"/>
                                 </Grid>
                                 <Image Grid.Row="1" Name="MainBackground" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                 <Frame Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="MainFrame" Background="Transparent" NavigationUIVisibility="Hidden"/>
@@ -100,10 +104,10 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type custom:GAMEOutlinedLabel}">
+    <!--<Style TargetType="{x:Type custom:GAMEOutlinedTextBlock}">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type custom:GAMEOutlinedLabel}">
+                <ControlTemplate TargetType="{x:Type custom:GAMEOutlinedTextBlock}">
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
@@ -112,5 +116,5 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
 </ResourceDictionary>

@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 
 namespace GAME.Common.Core.Views
 {
-    public class GAMEWindowBase : Window, IDisposable
+    public class GAMEWindowCommon : Window, IDisposable
     {
         #region Enums
 
@@ -26,24 +26,40 @@ namespace GAME.Common.Core.Views
             WIN_NORM_I,
             WIN_NORM_A,
             WIN_OPT_I,
-            WIN_OPT_A
+            WIN_OPT_A,
+            WIN_ABT_I,
+            WIN_ABT_A
+        }
+
+        public enum ShowingPage
+        {
+            None = 0,
+            Unknown = 1,
+            Main = 1 << 1,
+            Options = 1 << 2,
+            About = 1 << 3
         }
 
         #endregion
 
         #region Properties
 
-        public delegate void WindowClosed();
-
         public Label MainTitle
         {
             get { return _mainTitle; }
             set { _mainTitle = value; }
         }
+
         public Label MainInfo
         {
             get { return _mainInfo; }
             set { _mainInfo = value; }
+        }
+
+        public Button WindowAboutButton
+        {
+            get { return _winAboutButton; }
+            set { _winAboutButton = value; }
         }
 
         public Button WindowOptionsButton
@@ -82,10 +98,64 @@ namespace GAME.Common.Core.Views
             set { _mainBackground = value; }
         }
 
-        public WindowClosed Closed
+        public Page FirstAboutPage
         {
-            get { return _windowClosed; }
-            set { _windowClosed = value; }
+            get { return _firstAboutPage; }
+            set
+            {
+                if (value == null)
+                    WindowAboutButton.Visibility = System.Windows.Visibility.Hidden;
+                else
+                    WindowAboutButton.Visibility = System.Windows.Visibility.Visible;
+                _firstAboutPage = value;
+            }
+        }
+
+        public Page FirstOptionsPage
+        {
+            get { return _firstOptionsPage; }
+            set
+            {
+                if (value == null)
+                    WindowOptionsButton.Visibility = System.Windows.Visibility.Hidden;
+                else
+                    WindowOptionsButton.Visibility = System.Windows.Visibility.Visible;
+                _firstOptionsPage = value;
+            }
+        }
+
+        public Page FirstMainPage
+        {
+            get { return _firstMainPage; }
+            set
+            {
+                if (value == null)
+                    MainFrame.Content = null;
+                else
+                    MainFrame.Navigate(value);
+                MainFrame.NavigationService.RemoveBackEntry();
+                _firstMainPage = value;
+            }
+        }
+
+        public ShowingPage CurrentPage
+        {
+            get { return _showingPage; }
+        }
+
+        public Boolean IsShowingMain
+        {
+            get { return _isShowingMain; }
+        }
+
+        public Boolean IsShowingOptions
+        {
+            get { return _isShowingOptions; }
+        }
+
+        public Boolean IsShowingAbout
+        {
+            get { return _isShowingAbout; }
         }
 
         #endregion
@@ -100,9 +170,16 @@ namespace GAME.Common.Core.Views
         private Button _winMinimizeButton = null;
         private Button _winMaximizeButton = null;
         private Button _winCloseButton = null;
+        private Button _winAboutButton = null;
         private Frame _mainFrame = null;
         private Image _mainBackground = null;
-        protected WindowClosed _windowClosed;
+        private Page _firstMainPage = null;
+        private Page _firstAboutPage = null;
+        private Page _firstOptionsPage = null;
+        private ShowingPage _showingPage = ShowingPage.None;
+        private Boolean _isShowingMain = false;
+        private Boolean _isShowingAbout = false;
+        private Boolean _isShowingOptions = false;
         private Boolean _disposed = false;
 
         #endregion
@@ -126,12 +203,14 @@ namespace GAME.Common.Core.Views
             _images[ImageIndex.WIN_NORM_A] = new BitmapImage(new Uri("pack://application:,,,/GAME.Common.Core;component/Resources/Images/Buttons/Normal/GAME_Normal_active.png", UriKind.Absolute));
             _images[ImageIndex.WIN_OPT_I] = new BitmapImage(new Uri("pack://application:,,,/GAME.Common.Core;component/Resources/Images/Buttons/Options/GAME_Options_inactive.png", UriKind.Absolute));
             _images[ImageIndex.WIN_OPT_A] = new BitmapImage(new Uri("pack://application:,,,/GAME.Common.Core;component/Resources/Images/Buttons/Options/GAME_Options_active.png", UriKind.Absolute));
+            _images[ImageIndex.WIN_ABT_I] = new BitmapImage(new Uri("pack://application:,,,/GAME.Common.Core;component/Resources/Images/Buttons/About/GAME_About_inactive.png", UriKind.Absolute));
+            _images[ImageIndex.WIN_ABT_A] = new BitmapImage(new Uri("pack://application:,,,/GAME.Common.Core;component/Resources/Images/Buttons/About/GAME_About_active.png", UriKind.Absolute));
         }
 
-        static GAMEWindowBase()
-        {    
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(GAMEWindowBase),
-                new FrameworkPropertyMetadata(typeof(GAMEWindowBase)));
+        static GAMEWindowCommon()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(GAMEWindowCommon),
+                new FrameworkPropertyMetadata(typeof(GAMEWindowCommon)));
         }
 
         //Gets instances of window elements and sets up event handlers for them
@@ -168,9 +247,20 @@ namespace GAME.Common.Core.Views
             if (_winOptionsButton != null)
             {
                 _winOptionsButton.Visibility = System.Windows.Visibility.Hidden;
+                _winOptionsButton.PreviewMouseLeftButtonUp += WindowEvent_MouseLeftButtonUp;
                 _winOptionsButton.MouseEnter += WindowEvent_MouseEnter;
                 _winOptionsButton.MouseLeave += WindowEvent_MouseLeave;
                 _winOptionsButton.Content = _images[ImageIndex.WIN_OPT_I];
+            }
+
+            _winAboutButton = GetTemplateChild("WindowAboutButton") as Button;
+            if (_winAboutButton != null)
+            {
+                _winAboutButton.Visibility = System.Windows.Visibility.Hidden;
+                _winAboutButton.PreviewMouseLeftButtonUp += WindowEvent_MouseLeftButtonUp;
+                _winAboutButton.MouseEnter += WindowEvent_MouseEnter;
+                _winAboutButton.MouseLeave += WindowEvent_MouseLeave;
+                _winAboutButton.Content = _images[ImageIndex.WIN_ABT_I];
             }
 
             Rectangle dragTop = GetTemplateChild("DragTop") as Rectangle;
@@ -178,13 +268,13 @@ namespace GAME.Common.Core.Views
             {
                 dragTop.PreviewMouseLeftButtonDown += Drag_ButtonDown;
             }
-            
+
             Rectangle dragBottom = GetTemplateChild("DragBottom") as Rectangle;
             if (dragBottom != null)
             {
                 dragBottom.PreviewMouseLeftButtonDown += Drag_ButtonDown;
             }
-            
+
             _mainTitle = GetTemplateChild("MainTitle") as Label;
             if (_mainTitle != null)
             {
@@ -223,8 +313,8 @@ namespace GAME.Common.Core.Views
 
         #region C/D tor
 
-        public GAMEWindowBase(String name)
-        : base()
+        public GAMEWindowCommon(String name)
+            : base()
         {
             _windowTitle = name;
             PreviewMouseMove += OnPreviewMouseMove;
@@ -232,13 +322,21 @@ namespace GAME.Common.Core.Views
             Init();
         }
 
-        
+
+
+        #endregion
+
+        #region Navigation
+
+        public void ShowPage(Page page)
+        {
+            if (page != null)
+                MainFrame.Navigate(page);
+        }
 
         #endregion
 
         #region Events
-
-        public event CancelEventHandler GAMEWindowClosing;
 
         #region Click events
 
@@ -247,13 +345,19 @@ namespace GAME.Common.Core.Views
             Button b = (Button)sender;
             if (b.Name == WindowCloseButton.Name)
                 base.Close();
-            if (b.Name == WindowMinimizeButton.Name)
+            else if (b.Name == WindowAboutButton.Name)
+                ShowPage(FirstAboutPage);
+            else if (b.Name == WindowOptionsButton.Name)
+                ShowPage(FirstOptionsPage);
+            else if (b.Name == WindowMinimizeButton.Name)
                 WindowState = WindowState.Minimized;
-            if (b.Name == WindowMaximizeButton.Name)
+            else if (b.Name == WindowMaximizeButton.Name)
+            {
                 if (WindowState == WindowState.Normal)
                     WindowState = WindowState.Maximized;
                 else
                     WindowState = WindowState.Normal;
+            }
         }
 
         private void moveRectangle_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -275,16 +379,18 @@ namespace GAME.Common.Core.Views
         private void WindowEvent_MouseEnter(object sender, MouseEventArgs e)
         {
             Button b = (Button)sender;
-            if (_images != null && _images.Count >0)
-            b.Content = _images[(b.Name == WindowCloseButton.Name) ?
-                ImageIndex.WIN_CLOSE_A :
-                (b.Name == WindowOptionsButton.Name) ?
-                ImageIndex.WIN_OPT_A :
-                (b.Name == WindowMinimizeButton.Name) ?
-                ImageIndex.WIN_MIN_A :
-                (WindowState == System.Windows.WindowState.Maximized) ?
-                ImageIndex.WIN_NORM_A :
-                ImageIndex.WIN_MAX_A];
+            if (_images != null && _images.Count > 0)
+                b.Content = _images[(b.Name == WindowCloseButton.Name) ?
+                    ImageIndex.WIN_CLOSE_A :
+                    (b.Name == WindowAboutButton.Name) ?
+                    ImageIndex.WIN_ABT_A :
+                    (b.Name == WindowOptionsButton.Name) ?
+                    ImageIndex.WIN_OPT_A :
+                    (b.Name == WindowMinimizeButton.Name) ?
+                    ImageIndex.WIN_MIN_A :
+                    (WindowState == System.Windows.WindowState.Maximized) ?
+                    ImageIndex.WIN_NORM_A :
+                    ImageIndex.WIN_MAX_A];
         }
 
         private void WindowEvent_MouseLeave(object sender, MouseEventArgs e)
@@ -293,15 +399,17 @@ namespace GAME.Common.Core.Views
                 return;
             Button b = (Button)sender;
             if (_images != null && _images.Count > 0)
-            b.Content = _images[(b.Name == WindowCloseButton.Name) ?
-                ImageIndex.WIN_CLOSE_I :
-                (b.Name == WindowOptionsButton.Name) ?
-                ImageIndex.WIN_OPT_I :
-                (b.Name == WindowMinimizeButton.Name) ?
-                ImageIndex.WIN_MIN_I :
-                (WindowState == System.Windows.WindowState.Maximized) ?
-                ImageIndex.WIN_NORM_I :
-                ImageIndex.WIN_MAX_I];
+                b.Content = _images[(b.Name == WindowCloseButton.Name) ?
+                    ImageIndex.WIN_CLOSE_I :
+                    (b.Name == WindowAboutButton.Name) ?
+                    ImageIndex.WIN_ABT_I :
+                    (b.Name == WindowOptionsButton.Name) ?
+                    ImageIndex.WIN_OPT_I :
+                    (b.Name == WindowMinimizeButton.Name) ?
+                    ImageIndex.WIN_MIN_I :
+                    (WindowState == System.Windows.WindowState.Maximized) ?
+                    ImageIndex.WIN_NORM_I :
+                    ImageIndex.WIN_MAX_I];
         }
 
         protected void ResizeRectangle_MouseMove(Object sender, MouseEventArgs e)
@@ -386,8 +494,8 @@ namespace GAME.Common.Core.Views
                     break;
                 default:
                     break;
-                }
             }
+        }
 
         private void ResizeWindow(ResizeDirection direction)
         {
@@ -412,17 +520,8 @@ namespace GAME.Common.Core.Views
 
         void GAMEWindowBase_Closing(object sender, CancelEventArgs e)
         {
-            //if (GAMEWindowClosing != null)
-            //{
-            //    Delegate[] dels = GAMEWindowClosing.GetInvocationList();
-
-            //    GAMEWindowClosing(this, e);
-            //}
             if (!e.Cancel)
             {
-                //if (Closed != null)
-                //    Closed();
-
                 Dispose();
             }
         }

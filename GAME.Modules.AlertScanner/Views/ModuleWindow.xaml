@@ -1,6 +1,6 @@
-﻿<control:GAMEWindowMAO x:Class="GAME.Modules.Warframe.AlertScanner.Views.ModuleWindow"
+﻿<control:GAMEWindowCommon x:Class="GAME.Modules.Warframe.AlertScanner.Views.ModuleWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:control="clr-namespace:GAME.Common.Core.Views;assembly=GAME.Common.Core"
         Title="Alert Scanner">
-</control:GAMEWindowMAO>
+</control:GAMEWindowCommon>

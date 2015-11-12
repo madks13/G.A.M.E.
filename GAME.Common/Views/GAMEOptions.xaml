@@ -1,0 +1,61 @@
+﻿<Page x:Class="GAME.Common.Core.Views.GAMEOptions"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:userctrl="clr-namespace:GAME.Common.Core.Controls.User"
+      xmlns:options="clr-namespace:GAME.Common.Core.Models.Settings"
+      xmlns:selector="clr-namespace:GAME.Common.Core.Tools.DynamicTemplateSelector"
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="1024"
+	  Title="GAMEOptions"
+      Loaded="Page_Loaded">
+    
+    <Page.Resources>
+        
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        
+        <Label Grid.Row="1" Content="{Binding Count}" Foreground="Green" HorizontalAlignment="Left" Background="Transparent"/>
+        <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+            <ItemsControl ItemsSource="{Binding}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="AliceBlue" BorderThickness="1" Padding="5">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Label Content="{Binding DisplayName}" Foreground="White"/>
+                                <ContentControl Grid.Row="1" Content="{Binding Value}">
+                                    <ContentControl.ContentTemplate>
+                                        <DataTemplate DataType="{x:Type options:IntInterval}">
+                                            <userctrl:ValueFromInterval Maximum="{Binding Maximum}" Minimum="{Binding Minimum}" Current="{Binding Value}"/>
+                                        </DataTemplate>
+                                    </ContentControl.ContentTemplate>
+                                </ContentControl>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <Button Name="NavigationButton_Ok" Grid.Column="1" Width="75" Height="30" Content="OK" Click="NavigationButton_Ok_Click"/>
+            <Button Name="NavigationButton_Apply" Grid.Column="2" Width="75" Height="30" Content="Apply" Click="NavigationButton_Apply_Click"/>
+            <Button Name="NavigationButton_Cancel" Grid.Column="3" Width="75" Height="30" Content="Cancel" Click="NavigationButton_Cancel_Click"/>
+        </Grid>
+    </Grid>
+</Page>

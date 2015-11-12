@@ -1,7 +1,7 @@
-﻿<control:GAMEWindowMAO x:Class="GAME.Desktop.Views.MainWindow"
+﻿<control:GAMEWindowCommon x:Class="GAME.Desktop.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:control="clr-namespace:GAME.Common.Core.Views;assembly=GAME.Common.Core"
         Title="Game Activity Managed Electronically">
     
-</control:GAMEWindowMAO>
+</control:GAMEWindowCommon>

@@ -1,5 +1,6 @@
 ﻿using GAME.Common.Core.Interfaces.Plugin;
 using GAME.Common.Core.Managers;
+using GAME.Common.Core.Models.Settings;
 using GAME.Common.Core.Views;
 using GAME.Desktop.Models;
 using System;
@@ -15,7 +16,7 @@ namespace GAME.Desktop.Views
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : GAMEWindowMAO
+    public partial class MainWindow : GAMEWindowCommon
     {
         #region Fields
 
@@ -45,32 +46,28 @@ namespace GAME.Desktop.Views
         private void Init()
         {
             DataContext = this;
-            _settings = new Settings();
+            _settings = new Settings("settings.xml");
+
             log.Info("Current Directory = " + Directory.GetCurrentDirectory());
             log.Info("Current Directory = " + Directory.GetCurrentDirectory());
-            log.Info("Modules regexp = " + _settings.PluginPattern);
-            log.Info("Modules path = " + _settings.PluginPath);
-            log.Info("Modules absolute path = " + System.IO.Path.GetFullPath(_settings.PluginPath));
+            log.Info("Modules regexp = " + _settings["ModulePattern"].Value);
+            log.Info("Modules path = " + _settings["ModuleFolder"].Value);
+            log.Info("Modules absolute path = " + System.IO.Path.GetFullPath(_settings["ModuleFolder"].Value.ToString()));
             
             //Initialize the module manager with path to plugins
-            
-            _modmanager = new ManagerModules(_settings.PluginPaths.OfType<String>());
-            List<IPlugin> l = _modmanager.LoadModules(_settings.PluginPattern);
+
+            _modmanager = new ManagerModules(((List<String>)_settings["ModuleFolders"].Value).OfType<String>());
+            List<IPlugin> l = _modmanager.LoadModules(_settings["ModulePattern"].Value.ToString());
             
             log.Info("Modules found :");
             l.ForEach(p => { log.Info(p.Name); _modules.Add(p); });
             log.Info("Total modules found : " + _modules.Count);
 
-            MainPage = new ModulesList(_settings, _modules);
-            OptionsPage = new Options(_settings);
-            
-            ((Options)OptionsPage).OptionsClosed += OptionsClosed;
+            FirstMainPage = new ModulesList(_settings, _modules);
+            FirstOptionsPage = new GAMEOptions(_settings);
             
             MainBackground.Source = new BitmapImage(new Uri("pack://application:,,,/GAME.Common.Core;component/Resources/Images/Logos/GAME_logo_white.png", UriKind.Absolute));
-            MainFrame.Content = MainPage;
-            
-            //Closed += Close;
-            //GAMEWindowClosing += MainWindow_GAMEWindowClosing;
+            MainFrame.Content = FirstMainPage;            
         }
 
         #endregion
@@ -91,15 +88,15 @@ namespace GAME.Desktop.Views
 
         #endregion
 
-        private void OptionsClosed(object sender, Options.ClosureEventArgs e)
-        {
-            MainFrame.Content = MainPage;
-            if (!String.IsNullOrEmpty(_settings.PluginPath))
-            {
-                _modmanager.DelPaths();
-                _modmanager.AddPath(_settings.PluginPath);
-            }
-        }
+        //private void OptionsClosed(object sender, Options.ClosureEventArgs e)
+        //{
+        //    ShowPage(FirstMainPage);
+        //    if (!String.IsNullOrEmpty(_settings.PluginPath))
+        //    {
+        //        _modmanager.DelPaths();
+        //        _modmanager.AddPath(_settings.PluginPath);
+        //    }
+        //}
 
         protected override void Dispose(Boolean disposing)
         {

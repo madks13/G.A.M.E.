@@ -1,97 +1,36 @@
-﻿using GAME.Common.Core.ViewModels;
+﻿using GAME.Common.Core.Managers;
+using GAME.Common.Core.Models.Settings;
+using GAME.Common.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GAME.Desktop.Models
 {
-    public class Settings : PropertiesObserver
+    public class Settings : Options
     {
-        public StringCollection PluginPaths
-        {
-            get { return Properties.Settings.Default.UserPluginPaths; }
-            set 
-            { 
-                Properties.Settings.Default.UserPluginPaths = value;
-                NotifyPropertyChanged("PluginPaths");
-            }
-        }
-
-        public String PluginPattern
-        {
-            get { return Properties.Settings.Default.UserPluginPattern; }
-            set 
-            { 
-                Properties.Settings.Default.UserPluginPattern = value;
-                NotifyPropertyChanged("PluginPattern");
-            }
-        }
-        public String PluginPath
-        {
-            get { return Properties.Settings.Default.UserPluginPath; }
-            set
-            {
-                Properties.Settings.Default.UserPluginPath = value;
-                NotifyPropertyChanged("PluginPath");
-            }
-        }
-
-        public StringCollection LaunchedModules
-        {
-            get { return Properties.Settings.Default.UserLaunchedModules; }
-            set 
-            { 
-                Properties.Settings.Default.UserLaunchedModules = value;
-                NotifyPropertyChanged("LaunchedModules");
-            }
-        }
-        public Boolean RememberModules
-        {
-            get { return Properties.Settings.Default.RememberOpenedModules; }
-            set
-            {
-                Properties.Settings.Default.RememberOpenedModules = value;
-                NotifyPropertyChanged("RememberModules");
-            }
-        }
-
         public Settings()
         {
-            if (Properties.Settings.Default.UserPluginPaths == null)
-                Properties.Settings.Default.UserPluginPaths = new StringCollection();
-            if (Properties.Settings.Default.UserPluginPaths.Count == 0)
-                Properties.Settings.Default.UserPluginPaths.Add(Properties.Settings.Default.DefaultPluginPath);
-            if (String.IsNullOrEmpty(Properties.Settings.Default.UserPluginPattern))
-                Properties.Settings.Default.UserPluginPattern = Properties.Settings.Default.DefaultPluginPattern;
-            if (Properties.Settings.Default.UserLaunchedModules == null)
-                Properties.Settings.Default.UserLaunchedModules = new StringCollection();
-            if (String.IsNullOrEmpty(Properties.Settings.Default.UserPluginPath))
-                Properties.Settings.Default.UserPluginPath = Properties.Settings.Default.DefaultPluginPath;
         }
 
-        public void LoadDefaults()
+        public Settings(String path) : base(path)
         {
-            //if (PluginPaths == null)
-            //    PluginPaths = new StringCollection();
-            //else
-            //    PluginPaths.Clear();
-            //PluginPaths.Add(Properties.Settings.Default.DefaultPluginPath);
-            //PluginPattern = Properties.Settings.Default.DefaultPluginPattern;
-            //PluginPath = Properties.Settings.Default.DefaultPluginPath;
-            //if (LaunchedModules == null)
-            //    LaunchedModules = new StringCollection();
-            //else
-            //    LaunchedModules.Clear();
-            Properties.Settings.Default.Reset();
-            NotifyPropertyChanged("PluginPath");
         }
 
-        public void Save()
+        protected override void BuildDefaultSettings()
         {
-            Properties.Settings.Default.Save();
+            Add(new Option() { Name = "MuteModule", DisplayName = "Mute", Value = false, Group = "Sound", Info = "This will mute all sounds coming from the main module", ShortInfo = "Mute all sounds", IsReadOnly = true });
+            Add(new Option() { Name = "ReopenModules", DisplayName = "Reopen modules from last session", Value = false, Group = "Session", Info = "This will open any available modules opened in the last session", ShortInfo = "Reopen all modules that were opened in the last session", IsReadOnly = false });
+            Add(new Option() { Name = "ActiveModules", DisplayName = "Modules active in the last session", Value = new List<String>(), Group = "Session", Info = "This will keep track of all active modules between sessions", ShortInfo = "Track active modules between sessions", IsReadOnly = false });
+            Add(new Option() { Name = "ModuleFolder", DisplayName = "Module folder", Value = "Modules", Group = "Session", Info = "This is the path to the folder containing all of the modules", ShortInfo = "Path to the module folder", IsReadOnly = true });
+            Add(new Option() { Name = "ModuleFolders", DisplayName = "Module folders", Value = new List<String>() { ".\\Modules", "..\\Modules" }, Group = "Session", Info = "This is the list of folders containing all of the modules", ShortInfo = "Paths to the module folders", IsReadOnly = true });
+            Add(new Option() { Name = "ModulePattern", DisplayName = "Module pattern", Value = "GAME.Modules.*.dll", Group = "Session", Info = "This is the pattern used to find module assemblies by file name", ShortInfo = "Pattern for module names", IsReadOnly = true });
+            Add(new Option() { Name = "TestingInterval", DisplayName = "Test", Value = new IntInterval() { Maximum = 0, Minimum = 20, Value = 10 }, Group = "Testing", Info = "For testing purposes", ShortInfo = "Don't mind me", IsReadOnly = false });
         }
     }
 }
