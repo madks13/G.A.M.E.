@@ -47,7 +47,10 @@ namespace GAME.Common.Core.Controls.User
         public Decimal Current
         {
             get { return (Decimal)GetValue(CurrentProperty); }
-            set { SetValue(CurrentProperty, value); }
+            set 
+            { 
+                SetValue(CurrentProperty, value);
+            }
         }
 
         public Decimal SliderOpacity

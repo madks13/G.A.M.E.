@@ -107,5 +107,16 @@ namespace GAME.Desktop.Properties {
                 this["RememberOpenedModules"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::GAME.Common.Core.Models.Settings.Option ModulePattern {
+            get {
+                return ((global::GAME.Common.Core.Models.Settings.Option)(this["ModulePattern"]));
+            }
+            set {
+                this["ModulePattern"] = value;
+            }
+        }
     }
 }

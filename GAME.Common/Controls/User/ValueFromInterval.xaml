@@ -12,9 +12,9 @@
             <ColumnDefinition Width="100" />
         </Grid.ColumnDefinitions>
         <Slider x:Name="MainSlider" Background="{Binding SliderBackground}" Opacity="{Binding SliderOpacity}"
-                Maximum="{Binding Maximum}" Minimum="{Binding Minimum}" Value="{Binding Current}" Interval="{Binding Interval}" 
+                Maximum="{Binding Maximum}" Minimum="{Binding Minimum}" Value="{Binding Current, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Interval="{Binding Interval}" 
                 BorderBrush="Azure" BorderThickness="1" Foreground="{Binding SliderForeground}" 
                 IsSnapToTickEnabled="True" TickFrequency="{Binding Interval}" TickPlacement="Both"></Slider>
-        <TextBox x:Name="MainTextBox" Grid.Column="1" MaxLines="1" Text="{Binding Current}" Background="{Binding TextBoxBackground}" Foreground="{Binding TextBoxForeground}" Opacity="{Binding TextBoxOpacity}"/>
+        <TextBox x:Name="MainTextBox" Grid.Column="1" MaxLines="1" Text="{Binding Current, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="{Binding TextBoxBackground}" Foreground="{Binding TextBoxForeground}" Opacity="{Binding TextBoxOpacity}"/>
     </Grid>
 </UserControl>

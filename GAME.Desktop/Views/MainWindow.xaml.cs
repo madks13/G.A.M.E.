@@ -51,9 +51,12 @@ namespace GAME.Desktop.Views
             log.Info("Current Directory = " + Directory.GetCurrentDirectory());
             log.Info("Current Directory = " + Directory.GetCurrentDirectory());
             log.Info("Modules regexp = " + _settings["ModulePattern"].Value);
-            log.Info("Modules path = " + _settings["ModuleFolder"].Value);
-            log.Info("Modules absolute path = " + System.IO.Path.GetFullPath(_settings["ModuleFolder"].Value.ToString()));
-            
+            log.Info("Module paths :");
+            foreach (var path in _settings["ModuleFolders"].Value as List<String>)
+            {
+                log.Info("Modules path = " + path);
+                log.Info("Modules absolute path = " + System.IO.Path.GetFullPath(path));
+            }            
             //Initialize the module manager with path to plugins
 
             _modmanager = new ManagerModules(((List<String>)_settings["ModuleFolders"].Value).OfType<String>());

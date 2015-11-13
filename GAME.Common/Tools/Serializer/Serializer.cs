@@ -52,8 +52,16 @@ namespace GAME.Common.Core.Tools.Serializer
 
         public static string Serialize(string file, T serializable, Type[] extraTypes)
         {
-            var serializer = new XmlSerializer(typeof(T), extraTypes);
-            return Serialize(serializer, file, serializable);
+            try
+            {
+                var serializer = new XmlSerializer(typeof(T), extraTypes);
+                return Serialize(serializer, file, serializable);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Error caught : {0}", e.Message);
+            }
+            return String.Empty;
         }
 
         public static string Serialize(string file, T serializable, string nameSpace)

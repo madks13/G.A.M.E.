@@ -24,13 +24,12 @@ namespace GAME.Desktop.Models
 
         protected override void BuildDefaultSettings()
         {
-            Add(new Option() { Name = "MuteModule", DisplayName = "Mute", Value = false, Group = "Sound", Info = "This will mute all sounds coming from the main module", ShortInfo = "Mute all sounds", IsReadOnly = true });
-            Add(new Option() { Name = "ReopenModules", DisplayName = "Reopen modules from last session", Value = false, Group = "Session", Info = "This will open any available modules opened in the last session", ShortInfo = "Reopen all modules that were opened in the last session", IsReadOnly = false });
-            Add(new Option() { Name = "ActiveModules", DisplayName = "Modules active in the last session", Value = new List<String>(), Group = "Session", Info = "This will keep track of all active modules between sessions", ShortInfo = "Track active modules between sessions", IsReadOnly = false });
-            Add(new Option() { Name = "ModuleFolder", DisplayName = "Module folder", Value = "Modules", Group = "Session", Info = "This is the path to the folder containing all of the modules", ShortInfo = "Path to the module folder", IsReadOnly = true });
-            Add(new Option() { Name = "ModuleFolders", DisplayName = "Module folders", Value = new List<String>() { ".\\Modules", "..\\Modules" }, Group = "Session", Info = "This is the list of folders containing all of the modules", ShortInfo = "Paths to the module folders", IsReadOnly = true });
-            Add(new Option() { Name = "ModulePattern", DisplayName = "Module pattern", Value = "GAME.Modules.*.dll", Group = "Session", Info = "This is the pattern used to find module assemblies by file name", ShortInfo = "Pattern for module names", IsReadOnly = true });
-            Add(new Option() { Name = "TestingInterval", DisplayName = "Test", Value = new IntInterval() { Maximum = 0, Minimum = 20, Value = 10 }, Group = "Testing", Info = "For testing purposes", ShortInfo = "Don't mind me", IsReadOnly = false });
+            //Add(new Option() { Name = "MuteModule", DisplayName = "Mute", Value = false, Group = "Sound", Info = "This will mute all sounds coming from the main module", ShortInfo = "Mute all sounds"});
+            //Add(new Option() { Name = "ReopenModules", DisplayName = "Reopen modules from last session", Value = false, Group = "Session", Info = "This will open any available modules opened in the last session", ShortInfo = "Reopen all modules that were opened in the last session"});
+            //Add(new Option() { Name = "ActiveModules", DisplayName = "Modules active in the last session", Value = new List<String>() { "None" }, Group = "Session", Info = "This will keep track of all active modules between sessions", ShortInfo = "Track active modules between sessions", IsReadOnly = true });
+            //Add(new Option() { Name = "ModuleFolder", DisplayName = "Module folder", Value = "Modules", Group = "Session", Info = "This is the path to the folder containing all of the modules", ShortInfo = "Path to the module folder", IsReadOnly = true});
+            Add(new Option() { Name = "ModuleFolders", DisplayName = "Module folders", Value = new List<String>() { ".\\Modules", "..\\Modules" }, Group = "Session", Info = "This is the list of folders containing all of the modules", ShortInfo = "Paths to the module folders"});
+            Add(new Option() { Name = "ModulePattern", DisplayName = "Module pattern", Value = "GAME.Modules.*.dll", Group = "Session", Info = "This is the pattern used to find module assemblies by file name", ShortInfo = "Pattern for module names", IsReadOnly = true});
         }
     }
 }

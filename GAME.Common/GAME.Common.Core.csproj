@@ -75,8 +75,6 @@
     <Compile Include="Interfaces\IPluginGroup.cs" />
     <Compile Include="Interfaces\ISettings.cs" />
     <Compile Include="Interfaces\Managers\IManagerDataGetter.cs" />
-    <Compile Include="Interfaces\Pages\IMainPage.cs" />
-    <Compile Include="Interfaces\Pages\IOptionsPage.cs" />
     <Compile Include="Interfaces\Plugin\IDataPlugin.cs" />
     <Compile Include="Interfaces\Plugin\IModule.cs" />
     <Compile Include="Interfaces\Plugin\IModuleEvents.cs" />
@@ -86,10 +84,8 @@
     <Compile Include="Interfaces\Tools\IFinder.cs" />
     <Compile Include="Managers\OptionsManager.cs" />
     <Compile Include="Managers\SettingsManager.cs" />
-    <Compile Include="Models\ClosureEvent.cs" />
     <Compile Include="Models\Collections\Group.cs" />
     <Compile Include="Models\Collections\MTObservableCollection.cs" />
-    <Compile Include="Models\Observable.cs" />
     <Compile Include="Models\Collections\ObservableGroup.cs" />
     <Compile Include="Models\Collections\ObservablePluginGroup.cs" />
     <Compile Include="Models\Collections\PluginGroup.cs" />
@@ -98,7 +94,6 @@
     <Compile Include="Models\Settings\Interval.cs" />
     <Compile Include="Models\Settings\Option.cs" />
     <Compile Include="Models\Settings\Options.cs" />
-    <Compile Include="Models\Settings\PluginInfo.cs" />
     <Compile Include="Plugin\CoreModule.cs" />
     <Compile Include="Plugin\CorePlugin.cs" />
     <Compile Include="Managers\ModulesManager.cs" />
@@ -110,6 +105,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Tools\DynamicTemplateSelector\DynamicTemplateSelector.cs" />
+    <Compile Include="Tools\DynamicTemplateSelector\OptionTemplateSelector.cs" />
     <Compile Include="Tools\DynamicTemplateSelector\Template.cs" />
     <Compile Include="Tools\Finder\Finder.cs" />
     <Compile Include="Tools\Resourcer\Resource.cs" />

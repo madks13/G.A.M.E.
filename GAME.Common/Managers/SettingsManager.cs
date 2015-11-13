@@ -7,6 +7,7 @@ using System.Configuration;
 using GAME.Common.Core.Models.Settings;
 using GAME.Common.Core.Tools.Serializer;
 using System.IO;
+using GAME.Common.Core.Interfaces;
 
 namespace GAME.Common.Core.Managers
 {
@@ -56,7 +57,7 @@ namespace GAME.Common.Core.Managers
 
         #region Indexer
 
-        public Option this[String key]
+        public IOption this[String key]
         {
             get
             {
@@ -83,7 +84,7 @@ namespace GAME.Common.Core.Managers
             {
                 var map = new OptionsMapModel() { Path = path, Options = Serializer<Options>.Deserialize(_propertiesFilePath) };
                 _optionsMap.Add(map);
-                _optionsAll.AddRange(map.Options);
+                //_optionsAll.AddRange(map.Options);
             }
         }
 

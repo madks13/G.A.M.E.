@@ -16,10 +16,7 @@ namespace GAME.Common.Core.Models.Settings
 
         private object _defaultObject = null;
 
-        [UserScopedSetting()]
-        [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Xml)]
-
-        //[field: NonSerialized]
+        [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Binary)]
         public object DefaultValue
         {
             get { return _defaultObject; }
@@ -36,10 +33,7 @@ namespace GAME.Common.Core.Models.Settings
 
         private object _object = null;
 
-        [UserScopedSetting()]
-        [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Xml)]
-
-        //[field: NonSerialized]
+        [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Binary)]
         public object Value
         {
             get { return _object; }
@@ -49,12 +43,12 @@ namespace GAME.Common.Core.Models.Settings
                 {
                     DefaultValue = value;
                     _object = value;
-                    NotifyPropertyChanged("Object");
+                    NotifyPropertyChanged("Value");
                 }
                 else if (DefaultValue.GetType().IsAssignableFrom(value.GetType()))
                 {
                     _object = value;
-                    NotifyPropertyChanged("Object");
+                    NotifyPropertyChanged("Value");
                 }
             }
         }
@@ -65,7 +59,6 @@ namespace GAME.Common.Core.Models.Settings
 
         private String _name = String.Empty;
 
-        [UserScopedSetting()]
         [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Xml)]
         public String Name
         {
@@ -83,7 +76,6 @@ namespace GAME.Common.Core.Models.Settings
 
         private String _displayName = String.Empty;
 
-        [UserScopedSetting()]
         [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Xml)]
         public String DisplayName
         {
@@ -101,7 +93,6 @@ namespace GAME.Common.Core.Models.Settings
 
         private String _shortInfo = String.Empty;
 
-        [UserScopedSetting()]
         [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Xml)]
         public String ShortInfo
         {
@@ -119,7 +110,6 @@ namespace GAME.Common.Core.Models.Settings
 
         private String _info = String.Empty;
 
-        [UserScopedSetting()]
         [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Xml)]
         public String Info
         {
@@ -137,7 +127,6 @@ namespace GAME.Common.Core.Models.Settings
 
         private String _group = String.Empty;
 
-        [UserScopedSetting()]
         [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Xml)]
         public String Group
         {
@@ -155,6 +144,7 @@ namespace GAME.Common.Core.Models.Settings
 
         private Boolean _isReadOnly = false;
 
+        [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Xml)]
         public Boolean IsReadOnly
         {
             get
@@ -193,104 +183,4 @@ namespace GAME.Common.Core.Models.Settings
 
         #endregion
     }
-
-
-    #region Unused
-
-    //[Serializable]
-    //public class GenOption<T> : IOption
-    //{
-    //    private T _object = default(T);
-
-    //    [UserScopedSetting()]
-    //    [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Xml)]
-    //    public T Value
-    //    {
-    //        get { return _object; }
-    //        set
-    //        {
-    //            _object = value;
-    //            NotifyPropertyChanged("Object");
-    //        }
-    //    }
-
-    //    private String _name = String.Empty;
-
-    //    [UserScopedSetting()]
-    //    [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Xml)]
-    //    public String Name
-    //    {
-    //        get { return _name; }
-    //        set
-    //        {
-    //            _name = value;
-    //            NotifyPropertyChanged("Name");
-    //        }
-    //    }
-
-    //    private String _displayName = String.Empty;
-
-    //    [UserScopedSetting()]
-    //    [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Xml)]
-    //    public String DisplayName
-    //    {
-    //        get { return _displayName; }
-    //        set
-    //        {
-    //            _displayName = value;
-    //            NotifyPropertyChanged("DisplayName");
-    //        }
-    //    }
-
-    //    private String _shortInfo = String.Empty;
-
-    //    [UserScopedSetting()]
-    //    [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Xml)]
-    //    public String ShortInfo
-    //    {
-    //        get { return _shortInfo; }
-    //        set
-    //        {
-    //            _shortInfo = value;
-    //            NotifyPropertyChanged("ShortInfo");
-    //        }
-    //    }
-
-    //    private String _info = String.Empty;
-
-    //    [UserScopedSetting()]
-    //    [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Xml)]
-    //    public String Info
-    //    {
-    //        get { return _info; }
-    //        set
-    //        {
-    //            _info = value;
-    //            NotifyPropertyChanged("Info");
-    //        }
-    //    }
-
-    //    private String _group = String.Empty;
-
-    //    [UserScopedSetting()]
-    //    [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Xml)]
-    //    public String Group
-    //    {
-    //        get { return _group; }
-    //        set
-    //        {
-    //            _group = value;
-    //            NotifyPropertyChanged("Group");
-    //        }
-    //    }
-
-    //    public event PropertyChangedEventHandler PropertyChanged;
-    //    public void NotifyPropertyChanged(string property)
-    //    {
-    //        if (PropertyChanged != null)
-    //            PropertyChanged(this, new PropertyChangedEventArgs(property));
-    //    }
-    //}
-
-#endregion
 }

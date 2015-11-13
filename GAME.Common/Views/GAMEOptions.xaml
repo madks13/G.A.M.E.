@@ -9,37 +9,46 @@
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="1024"
 	  Title="GAMEOptions"
-      Loaded="Page_Loaded">
+      Loaded="Page_Loaded"
+      x:Name="Page">
     
     <Page.Resources>
-        
+        <selector:OptionTemplateSelector x:Key="ots"/>
     </Page.Resources>
 
-    <Grid>
+    <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         
-        <Label Grid.Row="1" Content="{Binding Count}" Foreground="Green" HorizontalAlignment="Left" Background="Transparent"/>
+        <Label Grid.Row="1" Content="{Binding DisplayedOptions.Count}" Foreground="Green" HorizontalAlignment="Left" Background="Transparent"/>
         <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-            <ItemsControl ItemsSource="{Binding}">
+            <ItemsControl ItemsSource="{Binding DisplayedOptions}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderBrush="AliceBlue" BorderThickness="1" Padding="5">
+                        <Border BorderBrush="{Binding Path=DataContext.GroupBorderColor, ElementName=MainGrid}" BorderThickness="2" Margin="0,3,0,3">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="50"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                <Label Content="{Binding DisplayName}" Foreground="White"/>
-                                <ContentControl Grid.Row="1" Content="{Binding Value}">
-                                    <ContentControl.ContentTemplate>
-                                        <DataTemplate DataType="{x:Type options:IntInterval}">
-                                            <userctrl:ValueFromInterval Maximum="{Binding Maximum}" Minimum="{Binding Minimum}" Current="{Binding Value}"/>
+                                <Label Content="{Binding Key}" Foreground="{Binding Path=DataContext.GroupBorderColor, ElementName=MainGrid}" FontSize="20" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" /> 
+                                <ItemsControl Grid.Row="1" ItemsSource="{Binding}" ItemTemplateSelector="{StaticResource ots}">
+                                    <ItemsControl.Resources>
+                                        <DataTemplate x:Key="brushOption">
+                                            <Border BorderBrush="{Binding Path=DataContext.OptionBorderColor, ElementName=MainGrid}" BorderThickness="1" Padding="5" Margin="2,2,2,2">
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="50"/>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Label Content="{Binding DisplayName}" Foreground="{Binding Path=DataContext.ForegroundColor, ElementName=MainGrid}" FontSize="{Binding Path=DataContext.OptionFontSize.Current, ElementName=MainGrid}"/>
+                                                </Grid>
+                                            </Border>
                                         </DataTemplate>
-                                    </ContentControl.ContentTemplate>
-                                </ContentControl>
+                                    </ItemsControl.Resources>
+                                </ItemsControl>
                             </Grid>
                         </Border>
                     </DataTemplate>

@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GAME.Common.Core.Tools.Serializer;
+using GAME.Common.Core.Interfaces;
 
 namespace GAME.Common.Core.Models.Settings
 {
-    public class Options : ObservableCollection<Option>
+    public class Options : ObservableCollection<IOption>
     {
         protected String _path = String.Empty;
 
@@ -21,6 +22,14 @@ namespace GAME.Common.Core.Models.Settings
         {
             if (!LoadFromFile(path))
             {
+                if (!String.IsNullOrEmpty(path))
+                {
+                    _path = path;
+                }
+                else
+                {
+                    _path = "settings.xml";
+                }
                 BuildDefaultSettings();
             }
         }
@@ -61,11 +70,6 @@ namespace GAME.Common.Core.Models.Settings
 
         public Boolean SaveToFile(String path)
         {
-            if (!File.Exists(path))
-            {
-                return false;
-            }
-
             _path = path;
 
             //Debug
@@ -75,8 +79,8 @@ namespace GAME.Common.Core.Models.Settings
 
             try
             {
-                Type[] types = this.Select(x => x.Value.GetType()).ToArray();
-                Serializer<List<Option>>.Serialize(path, this.ToList(), types);
+                Type[] types = this.Select(x => x.Value.GetType()).Distinct().ToArray();
+                Serializer<List<Option>>.Serialize(path, this.Cast<Option>().ToList(), types);
             }
             catch
             {
@@ -105,7 +109,7 @@ namespace GAME.Common.Core.Models.Settings
             }
         }
 
-        public Option this[String key]
+        public IOption this[String key]
         {
             get
             {
@@ -131,7 +135,7 @@ namespace GAME.Common.Core.Models.Settings
             }
         }
 
-        public Options AddRange(IEnumerable<Option> options)
+        public Options AddRange(IEnumerable<IOption> options)
         {
             if (options != null)
             {

@@ -112,11 +112,19 @@ namespace GAME.Common.Core.Tools.Finder
                     log.Info("Found " + files.Length + " files :");
                     foreach (String file in files)
                     {
-                        log.Info("\t\t" + file);
-                        l.Add(new FileInfo(file));
+                        if (file.Contains("cache") || file.Contains("backup"))
+                        {
+                            log.Info("[Ignored]\t\t" + file);
+                        }
+                        else
+                        {
+                            log.Info("[Found]\t\t" + file);
+                            l.Add(new FileInfo(file));
+                        }
                     }
                 }
-                log.Error("No files found in the path : " + path + ", full path = " + Path.GetFullPath(path));
+                else
+                    log.Error("No files found in the path : " + path + ", full path = " + Path.GetFullPath(path));
             }
             catch (System.Exception excpt)
             {
