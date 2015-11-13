@@ -24,7 +24,7 @@
         
         <Label Grid.Row="1" Content="{Binding DisplayedOptions.Count}" Foreground="Green" HorizontalAlignment="Left" Background="Transparent"/>
         <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-            <ItemsControl ItemsSource="{Binding DisplayedOptions}">
+            <ItemsControl ItemsSource="{Binding DisplayedOptions}" x:Name="GroupItem">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border BorderBrush="{Binding Path=DataContext.GroupBorderColor, ElementName=MainGrid}" BorderThickness="2" Margin="0,3,0,3">
@@ -34,7 +34,7 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <Label Content="{Binding Key}" Foreground="{Binding Path=DataContext.GroupBorderColor, ElementName=MainGrid}" FontSize="20" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" /> 
-                                <ItemsControl Grid.Row="1" ItemsSource="{Binding}" ItemTemplateSelector="{StaticResource ots}">
+                                <ItemsControl Grid.Row="1" ItemsSource="{Binding}" ItemTemplateSelector="{StaticResource ots}" x:Name="OptionItem">
                                     <ItemsControl.Resources>
                                         <DataTemplate x:Key="brushOption">
                                             <Border BorderBrush="{Binding Path=DataContext.OptionBorderColor, ElementName=MainGrid}" BorderThickness="1" Padding="5" Margin="2,2,2,2">
@@ -42,8 +42,15 @@
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="50"/>
                                                         <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="*"/>
                                                     </Grid.RowDefinitions>
                                                     <Label Content="{Binding DisplayName}" Foreground="{Binding Path=DataContext.ForegroundColor, ElementName=MainGrid}" FontSize="{Binding Path=DataContext.OptionFontSize.Current, ElementName=MainGrid}"/>
+                                                    <StackPanel Grid.Row="1">
+                                                        <Label Foreground="White" Content="{Binding Value}"/>
+                                                        <Label Foreground="White" Content="{Binding Name}"/>
+                                                    </StackPanel>
+                                                    <ComboBox Grid.Row="2" ItemsSource="{Binding Path=DataContext.AvailableColors, ElementName=MainGrid}" SelectedValue="{Binding Path=DataContext.Value, ElementName=brushOption}" SelectedValuePath="Brush" DisplayMemberPath="Name">
+                                                    </ComboBox>
                                                 </Grid>
                                             </Border>
                                         </DataTemplate>

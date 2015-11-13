@@ -2,6 +2,7 @@
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 namespace GAME.Common.Core.Tools.Serializer
 {
@@ -10,12 +11,12 @@ namespace GAME.Common.Core.Tools.Serializer
     {
         public static T Deserialize(string file)
         {
-            var serializer = new XmlSerializer(typeof(T));
             try
             {
                 using (var fs = new FileStream(file, FileMode.Open))
                 {
-                    var result = (T)serializer.Deserialize(fs);
+                    //var result = (T)GetSerializer().Deserialize(fs);
+                    var result = (T)GetSerializer().ReadObject(fs);
 
                     return result;
                 }
@@ -43,31 +44,43 @@ namespace GAME.Common.Core.Tools.Serializer
             return originalMessage;
         }
 
-        public static string Serialize(string file, T serializable)
+        private static Boolean Serialize(DataContractSerializer serializer, string file, T serializable)
         {
-            var serializer = new XmlSerializer(typeof(T));
+            using (var fs = XmlWriter.Create(file, new XmlWriterSettings() {Indent = true, IndentChars = "\t" }))
+            {
+                serializer.WriteObject(fs, serializable);
+            }
 
-            return Serialize(serializer, file, serializable);
+            return true;
         }
 
-        public static string Serialize(string file, T serializable, Type[] extraTypes)
+        private static DataContractSerializer GetSerializer(Type[] extraTypes = null)
+        {
+            if (extraTypes != null && extraTypes.Length > 0)
+            {
+                return new DataContractSerializer(typeof(T), extraTypes);
+                //return new XmlSerializer(typeof(T), extraTypes);
+            }
+            //return new XmlSerializer(typeof(T));
+            return new DataContractSerializer(typeof(T));
+        }
+
+        public static Boolean Serialize(string file, T serializable)
+        {
+            return Serialize(GetSerializer() , file, serializable);
+        }
+
+        public static Boolean Serialize(string file, T serializable, Type[] extraTypes)
         {
             try
             {
-                var serializer = new XmlSerializer(typeof(T), extraTypes);
-                return Serialize(serializer, file, serializable);
+                return Serialize(GetSerializer(extraTypes), file, serializable);
             }
             catch(Exception e)
             {
                 Console.WriteLine("Error caught : {0}", e.Message);
             }
-            return String.Empty;
-        }
-
-        public static string Serialize(string file, T serializable, string nameSpace)
-        {
-            var serializer = new XmlSerializer(typeof(T), nameSpace);
-            return Serialize(serializer, file, serializable);
+            return false;
         }
     }
 }

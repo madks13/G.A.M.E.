@@ -4,18 +4,25 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace GAME.Common.Core.Models.Settings
 {
     [Serializable]
+    [DataContract]
+    [KnownType(typeof(List<String>))]
+    [KnownType(typeof(DoubleInterval))]
+    [KnownType(typeof(Brush))]
     public class Option : IOption
     {
         #region DefaultValue
 
         private object _defaultObject = null;
 
+        [DataMember]
         [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Binary)]
         public object DefaultValue
         {
@@ -33,6 +40,7 @@ namespace GAME.Common.Core.Models.Settings
 
         private object _object = null;
 
+        [DataMember]
         [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Binary)]
         public object Value
         {
@@ -59,6 +67,7 @@ namespace GAME.Common.Core.Models.Settings
 
         private String _name = String.Empty;
 
+        [DataMember]
         [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Xml)]
         public String Name
         {
@@ -76,6 +85,7 @@ namespace GAME.Common.Core.Models.Settings
 
         private String _displayName = String.Empty;
 
+        [DataMember]
         [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Xml)]
         public String DisplayName
         {
@@ -93,6 +103,7 @@ namespace GAME.Common.Core.Models.Settings
 
         private String _shortInfo = String.Empty;
 
+        [DataMember]
         [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Xml)]
         public String ShortInfo
         {
@@ -110,6 +121,7 @@ namespace GAME.Common.Core.Models.Settings
 
         private String _info = String.Empty;
 
+        [DataMember]
         [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Xml)]
         public String Info
         {
@@ -127,6 +139,7 @@ namespace GAME.Common.Core.Models.Settings
 
         private String _group = String.Empty;
 
+        [DataMember]
         [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Xml)]
         public String Group
         {
@@ -144,6 +157,7 @@ namespace GAME.Common.Core.Models.Settings
 
         private Boolean _isReadOnly = false;
 
+        [DataMember]
         [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Xml)]
         public Boolean IsReadOnly
         {
@@ -156,6 +170,28 @@ namespace GAME.Common.Core.Models.Settings
             {
                 _isReadOnly = value;
                 NotifyPropertyChanged("IsReadOnly");
+            }
+        }
+
+        #endregion
+
+        #region IsUnknownType
+
+        private Boolean _isUnknownType = false;
+
+        [DataMember]
+        [SettingsSerializeAs(System.Configuration.SettingsSerializeAs.Xml)]
+        public Boolean IsUnknownType
+        {
+            get
+            {
+                return _isUnknownType;
+            }
+
+            set
+            {
+                _isUnknownType = value;
+                NotifyPropertyChanged("IsUnknownType");
             }
         }
 

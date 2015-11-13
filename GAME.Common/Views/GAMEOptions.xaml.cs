@@ -19,6 +19,12 @@ using System.Reflection;
 
 namespace GAME.Common.Core.Views
 {
+    public class ColorChoice
+    {
+        public String Name { get; set; }
+
+        public String Value { get; set; }
+    }
     /// <summary>
     /// Interaction logic for GAMEOptions.xaml
     /// </summary>
@@ -27,6 +33,7 @@ namespace GAME.Common.Core.Views
         private Options _options;
         private ObservableCollection<IGrouping<String, IOption>> _displayedOptions;
         private BrushConverter _brushConverter = new BrushConverter();
+        private List<ColorChoice> _availableColors = new List<ColorChoice>();
 
         public GAMEOptions(Options options)
         {
@@ -37,21 +44,30 @@ namespace GAME.Common.Core.Views
 
         private void Init()
         {
-            //IOption o = _options["ForegroundColor"];
-            //if (o == null)
-            //    _options.Add(new Option() { Name = "ForegroundColor", DisplayName = "Text color", Value = Brushes.White.ToString(), Group = "Themes", Info = "This will change the color of the text", ShortInfo = "Change text color" });
-            //o = _options["BackgroundColor"];
-            //if (o == null)
-            //    _options.Add(new Option() { Name = "BackgroundColor", DisplayName = "Background color", Value = Brushes.Black.ToString(), Group = "Themes", Info = "This will change the color of the background", ShortInfo = "Change background color" });
-            //o = _options["GroupBorderColor"];
-            //if (o == null)
-            //    _options.Add(new Option() { Name = "GroupBorderColor", DisplayName = "Groups border color", Value = Brushes.Gold.ToString(), Group = "Themes", Info = "This will change the color of the border for the groups", ShortInfo = "Change groups border color" });
-            //o = _options["OptionBorderColor"];
-            //if (o == null)
-            //    _options.Add(new Option() { Name = "OptionBorderColor", DisplayName = "Options border color", Value = Brushes.Blue.ToString(), Group = "Themes", Info = "This will change the color of the border for the options", ShortInfo = "Change options border color" });
-            //o = _options["OptionFontSize"];
-            //if (o == null)
-            //    _options.Add(new Option() { Name = "OptionFontSize", DisplayName = "OptionFontSize", Value = new DoubleInterval() { Maximum = 30, Minimum = 10, Value = 16 }, Group = "Themes", Info = "This will change the size of the text for the options", ShortInfo = "Change options text size" });
+            if (_options["ForegroundColor"] == null)
+                _options.Add(new Option() { Name = "ForegroundColor", DisplayName = "Text color", Value = Brushes.White.ToString(), Group = "Themes", Info = "This will change the color of the text", ShortInfo = "Change text color" });
+            if (_options["BackgroundColor"] == null)
+                _options.Add(new Option() { Name = "BackgroundColor", DisplayName = "Background color", Value = Brushes.Black.ToString(), Group = "Themes", Info = "This will change the color of the background", ShortInfo = "Change background color" });
+            if (_options["GroupBorderColor"] == null)
+                _options.Add(new Option() { Name = "GroupBorderColor", DisplayName = "Groups border color", Value = Brushes.Gold.ToString(), Group = "Themes", Info = "This will change the color of the border for the groups", ShortInfo = "Change groups border color" });
+            if (_options["OptionBorderColor"] == null)
+                _options.Add(new Option() { Name = "OptionBorderColor", DisplayName = "Options border color", Value = Brushes.Blue.ToString(), Group = "Themes", Info = "This will change the color of the border for the options", ShortInfo = "Change options border color" });
+            if (_options["OptionFontSize"] == null)
+                _options.Add(new Option() { Name = "OptionFontSize", DisplayName = "OptionFontSize", Value = new DoubleInterval() { Maximum = 30, Minimum = 10, Value = 16 }, Group = "Themes", Info = "This will change the size of the text for the options", ShortInfo = "Change options text size" });
+
+
+            //Populate colo choices
+            PropertyInfo[] pia = typeof(Brushes).GetProperties(BindingFlags.Public | BindingFlags.Static);
+            foreach (var pi in pia)
+            {
+                if (pi.PropertyType == typeof(SolidColorBrush))
+                {
+                    var color = (SolidColorBrush)pi.GetValue(null, null);
+                    _availableColors.Add(new ColorChoice() { Name = pi.Name, Value = color.ToString()});
+                }
+            }
+
+
             RefreshDisplayedOptions();
         }
 
@@ -72,6 +88,18 @@ namespace GAME.Common.Core.Views
         {
             get { return _displayedOptions; }
             set { _displayedOptions = value; }
+        }
+
+        public List<ColorChoice> AvailableColors
+        {
+            get 
+            {
+                return _availableColors;
+            }
+            set
+            {
+                _availableColors = value;
+            }
         }
 
         public SolidColorBrush ForegroundColor

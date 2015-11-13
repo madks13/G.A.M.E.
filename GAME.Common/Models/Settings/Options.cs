@@ -79,8 +79,12 @@ namespace GAME.Common.Core.Models.Settings
 
             try
             {
-                Type[] types = this.Select(x => x.Value.GetType()).Distinct().ToArray();
-                Serializer<List<Option>>.Serialize(path, this.Cast<Option>().ToList(), types);
+                //Type[] types = this
+                //                    //.Where(x => x.IsUnknownType)
+                //                    .Select(x => x.Value.GetType())
+                //                    .Distinct()
+                //                    .ToArray();
+                Serializer<List<Option>>.Serialize(path, this.Cast<Option>().ToList());
             }
             catch
             {
